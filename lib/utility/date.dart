@@ -1,7 +1,7 @@
-class AppDate {
+class TimeStamp {
   DateTime dateTime;
 
-  AppDate(this.dateTime);
+  TimeStamp(this.dateTime);
 
   final weekDays = [
     "الإثنين",
@@ -31,5 +31,14 @@ class AppDate {
 
   String weekDay() {
     return weekDays[dateTime.weekday - 1];
+  }
+
+  @override
+  String toString() {
+    return dateTime.toString();
+  }
+
+  factory TimeStamp.fromString(String s) {
+    return TimeStamp(DateTime.parse(s));
   }
 }

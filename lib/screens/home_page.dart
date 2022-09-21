@@ -19,8 +19,16 @@ class _HomePageState extends State<HomePage> {
         backgroundColor: AppColors.primaryLight,
         body: Column(
           children: const [
-            Header(),
-            Body(child: Text("")),
+            Expanded(
+              flex: 1,
+              child: Header(),
+            ),
+            Expanded(
+              flex: 9,
+              child: Body(
+                child: Text(""),
+              ),
+            ),
           ],
         ),
       ),

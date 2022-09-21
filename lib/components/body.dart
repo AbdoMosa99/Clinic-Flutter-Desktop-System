@@ -1,4 +1,5 @@
 import 'package:clinic_flutter_desktop_system/constants/colors.dart';
+import 'package:clinic_flutter_desktop_system/data.dart';
 import 'package:flutter/material.dart';
 import 'package:textfield_search/textfield_search.dart';
 
@@ -11,15 +12,12 @@ class Body extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-      Size size = MediaQuery.of(context).size;
-
     return Container(
       padding: const EdgeInsets.all(20.0),
-      height: size.height*9 / 10,
       child: Column(
         children: [
           Expanded(
-            child: Container(
+            child: SizedBox(
               width: double.infinity,
               child: Row(
                 children: [
@@ -43,44 +41,30 @@ class Body extends StatelessWidget {
                       ),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 10.0,
                   ),
                   Expanded(
                     child: Container(
-                      height: 45,
-                      decoration: const BoxDecoration(
-                        color: AppColors.grey,
-                        borderRadius: BorderRadius.all(
-                         Radius.circular(6.0)
+                        height: 45,
+                        decoration: const BoxDecoration(
+                          color: AppColors.grey,
+                          borderRadius: BorderRadius.all(Radius.circular(6.0)),
                         ),
-                    ),
-                      child: Padding(
-                        padding: const EdgeInsets.only(right: 4.0),
-                        child: TextFieldSearch(
-                          initialList: const [
-                            'مصطفي امين',
-                            'عبدالرحمن موسي',
-                            'عبدالرحمن مساعد',
-                            'احمد محروس',
-                            'احمد عبدالغني',
-                            'منة الشاذلي',
-                            'كوثر احمد',
-                            'منار شاهين',
-                            'مصطفي سعد',
-                          ],
-                          label: "البحث عن عميل",
-                          controller: TextEditingController(),
-                          textStyle: const TextStyle(
-                            fontSize: 15.0
+                        child: Padding(
+                          padding: const EdgeInsets.only(right: 4.0),
+                          child: TextFieldSearch(
+                            initialList: List.generate(
+                              clients.length,
+                              (i) => clients[i].name,
+                            ),
+                            label: "البحث عن عميل",
+                            controller: TextEditingController(),
+                            textStyle: const TextStyle(fontSize: 15.0),
                           ),
-                        ),
-
-                      )
-
-                    ),
+                        )),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 80.0,
                   ),
                   TextButton(
@@ -126,18 +110,15 @@ class Body extends StatelessWidget {
           Expanded(
             flex: 9,
             child: Container(
-              width: double.infinity,
-              decoration: const BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.only(
+                width: double.infinity,
+                decoration: const BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(20.0),
                         bottomRight: Radius.circular(20.0),
-                        bottomLeft: Radius.circular(20.0)
-                      )
-              ),
-              child: AttendanceTable()
-              ),
-            ),
+                        bottomLeft: Radius.circular(20.0))),
+                child: AttendanceTable()),
+          ),
         ],
       ),
     );

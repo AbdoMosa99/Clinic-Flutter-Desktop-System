@@ -9,12 +9,9 @@ class Header extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
-    AppDate date = AppDate(DateTime.now());
+    TimeStamp date = TimeStamp(DateTime.now());
 
     return Container(
-      width: double.infinity,
-      height: size.height / 10,
       padding: const EdgeInsets.symmetric(horizontal: 40.0),
       decoration: const BoxDecoration(
         color: AppColors.primary,
