@@ -4,8 +4,6 @@ import 'package:clinic_flutter_desktop_system/constants/colors.dart';
 import 'package:clinic_flutter_desktop_system/data.dart';
 import 'package:flutter/material.dart';
 import 'package:textfield_search/textfield_search.dart';
-import '../table/row.dart';
-import '../table/table.dart';
 
 class Body extends StatefulWidget {
   Widget child;
@@ -22,7 +20,7 @@ class Body extends StatefulWidget {
 }
 
 class _BodyState extends State<Body> {
-  void update(Widget child, String title) {
+  void change(Widget child, String title) {
     setState(() {
       widget.child = child;
       widget.title = title;
@@ -64,47 +62,42 @@ class _BodyState extends State<Body> {
                     width: 10.0,
                   ),
                   Expanded(
-                    child: Padding(
-                          padding: const EdgeInsets.only(right: 4.0),
-                          child: TextFieldSearch(
-                            initialList: List.generate(
-                              clients.length,
-                              (i) => clients[i].name,
-                            ),
-                            label: "البحث عن عميل",
-                            controller: TextEditingController(),
-                            textStyle: const TextStyle(fontSize: 15.0),
-
-                            decoration: InputDecoration(
-                              focusedBorder:OutlineInputBorder(
-                                borderSide: const BorderSide(color: AppColors.primary, width: 2.0),
-                                borderRadius: BorderRadius.circular(12.0),
-                              ),
-                              border: OutlineInputBorder(
-                                borderSide: const BorderSide(color: AppColors.grey, width: 2.0),
-                                borderRadius: BorderRadius.circular(12.0),
-                              ),
-
-                              filled: true,
-                              fillColor: AppColors.grey,
-
-                              labelText: "البحث عن عميل",
-                              labelStyle: const TextStyle(
-                                fontSize: 18.0,
-                                fontWeight: FontWeight.w300,
-                                color: Colors.black
-                              )
-                            ),
-
+                      child: Padding(
+                    padding: const EdgeInsets.only(right: 4.0),
+                    child: TextFieldSearch(
+                      initialList: List.generate(
+                        clients.length,
+                        (i) => clients[i].name,
+                      ),
+                      label: "البحث عن عميل",
+                      controller: TextEditingController(),
+                      textStyle: const TextStyle(fontSize: 15.0),
+                      decoration: InputDecoration(
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: const BorderSide(
+                                color: AppColors.primary, width: 2.0),
+                            borderRadius: BorderRadius.circular(12.0),
                           ),
-                        )),
-
+                          border: OutlineInputBorder(
+                            borderSide: const BorderSide(
+                                color: AppColors.grey, width: 2.0),
+                            borderRadius: BorderRadius.circular(12.0),
+                          ),
+                          filled: true,
+                          fillColor: AppColors.grey,
+                          labelText: "البحث عن عميل",
+                          labelStyle: const TextStyle(
+                              fontSize: 18.0,
+                              fontWeight: FontWeight.w300,
+                              color: Colors.black)),
+                    ),
+                  )),
                   const SizedBox(
                     width: 80.0,
                   ),
                   TextButton(
                     onPressed: () {
-                      update(AttendanceBody(), "اليوم");
+                      change(AttendanceBody(), "اليوم");
                     },
                     child: Container(
                       padding: const EdgeInsets.symmetric(
@@ -124,7 +117,7 @@ class _BodyState extends State<Body> {
                   ),
                   TextButton(
                     onPressed: () {
-                      update(ClientsBody(), "الكل");
+                      change(ClientsBody(), "الكل");
                     },
                     child: Container(
                       padding: const EdgeInsets.symmetric(

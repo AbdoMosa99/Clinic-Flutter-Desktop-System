@@ -1,16 +1,19 @@
-import 'package:clinic_flutter_desktop_system/components/dialogs/attend_dialog.dart';
-import 'package:clinic_flutter_desktop_system/data.dart';
+import 'package:clinic_flutter_desktop_system/components/buttons/common_buttons.dart';
 import 'package:flutter/material.dart';
 
-import '../../constants/colors.dart';
-
 class AppRow extends StatelessWidget {
-  AppRow({
+  final List<String> values;
+  final bool attendBtn;
+  final bool payBtn;
+  final bool cancelBtn;
+
+  const AppRow({
     Key? key,
     required this.values,
+    this.attendBtn = true,
+    this.payBtn = true,
+    this.cancelBtn = true,
   }) : super(key: key);
-
-  List<String> values;
 
   @override
   Widget build(BuildContext context) {
@@ -42,107 +45,25 @@ class AppRow extends StatelessWidget {
                     padding: const EdgeInsets.only(right: 100.0),
                     child: Row(
                       children: [
-                        Expanded(
-                          child: TextButton(
-                            onPressed: () {
-                              showDialog(
-                                context: context,
-                                builder: (context) {
-                                  return Dialog(
-                                    child: AtttendDialog(
-                                      clients.firstWhere(
-                                          (e) => e.id.toString() == values[0]),
-                                    ),
-                                  );
-                                },
-                              );
-                            },
-                            child: Container(
-                              width: 100,
-                              height: 35,
-                              padding: const EdgeInsets.only(
-                                    bottom: 2.0
-                                  ),
-                              decoration: const BoxDecoration(
-                                color: Colors.green,
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(12.0)),
-                              ),
-                              child: Align(
-                                alignment: Alignment.center,
-                                child: const Text(
-                                  "حضور",
-                                  style: TextStyle(
-                                    fontSize: 20.0,
-                                    color: Colors.white,
-                                  ),
-                                ),
-                              ),
-                            ),
+                        if (attendBtn)
+                          Expanded(
+                            child: AttendButton(id: values[0]),
                           ),
-                        ),
-                        Expanded(
-                          child: TextButton(
-                            onPressed: () {
-                              showDialog(
-                                context: context,
-                                builder: (context) {
-                                  return Dialog();
-                                },
-                              );
-                            },
-                            child: Container(
-                              width: 100,
-                              height: 35,
-                              padding: const EdgeInsets.only(
-                                  bottom: 2.0
-                                  ),
-                              decoration: const BoxDecoration(
-                                color: AppColors.grey,
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(12.0)),
-                              ),
-                              child: Align(
-                                alignment: Alignment.center,
-                                child: const Text(
-                                  "دفع",
-                                  style: TextStyle(
-                                    fontSize: 20.0,
-                                    color: Colors.black,
-                                  ),
-                                ),
-                              ),
-                            ),
+                        if (payBtn)
+                          Expanded(
+                            child: PayButton(id: values[0]),
                           ),
-                        ),
-                        Expanded(
-                          child: TextButton(
-                            onPressed: () {},
-                            child: Container(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 15.0, vertical: 3.0),
-                              decoration: const BoxDecoration(
-                                color: Colors.red,
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(12.0)),
-                              ),
-                              child: const Text(
-                                "إلغاء",
-                                style: TextStyle(
-                                  fontSize: 20.0,
-                                  color: Colors.white,
-                                ),
-                              ),
-                            ),
+                        if (cancelBtn)
+                          Expanded(
+                            child: CancelButton(id: values[0]),
                           ),
-                        ),
                       ],
                     ),
                   ))
             ],
           ),
         ),
-        Divider(color: Colors.black)
+        const Divider(color: Colors.black)
       ],
     );
   }

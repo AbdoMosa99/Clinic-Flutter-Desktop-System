@@ -5,12 +5,14 @@ class Client {
   String name;
   String phone;
   bool present;
+  String reason;
 
   Client({
     this.id = 0,
     required this.name,
     required this.phone,
-    required this.present,
+    this.present = false,
+    this.reason = "",
   });
 
   Map<String, dynamic> toMap() {

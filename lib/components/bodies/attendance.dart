@@ -1,7 +1,7 @@
 import 'package:clinic_flutter_desktop_system/components/table/table.dart';
 import 'package:flutter/material.dart';
 
-import '../../data.dart';
+import 'package:clinic_flutter_desktop_system/data.dart';
 
 class AttendanceBody extends StatelessWidget {
   const AttendanceBody({super.key});
@@ -10,30 +10,16 @@ class AttendanceBody extends StatelessWidget {
   Widget build(BuildContext context) {
     List<String> header = ['الدور', 'اسم العميل', 'السبب'];
 
-    Future<List<List<String>>> getRows() async {
-      var attendance = await db.getAttendance();
-      print(attendance);
-      int n = 1;
-      return List.generate(
-        attendance.length,
-        (i) {
-          return [
-            (n++).toString(),
-            clients.firstWhere((e) => e.id == attendance[i].clientId).name,
-            attendance[i].reason,
-          ];
-        },
-      );
+    List<List<String>> rows = [];
+    for (int i = 0; i < clients.length; i++) {
+      if (clients[i].present) {
+        rows.add([
+          clients[i].id.toString(),
+          clients[i].name,
+          clients[i].reason,
+        ]);
+      }
     }
-
-    return FutureBuilder(
-      future: getRows(),
-      builder: (BuildContext context, AsyncSnapshot<void> snapshot) {
-        return snapshot.hasData
-            ? AppTable(
-                header: header, rows: snapshot.data as List<List<String>>)
-            : const CircularProgressIndicator();
-      },
-    );
+    return AppTable(header: header, rows: rows);
   }
 }

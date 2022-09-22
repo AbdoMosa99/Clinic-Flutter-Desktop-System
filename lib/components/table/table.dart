@@ -1,17 +1,25 @@
 import 'package:clinic_flutter_desktop_system/components/table/row.dart';
+import 'package:clinic_flutter_desktop_system/data.dart';
+import 'package:clinic_flutter_desktop_system/database/models.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:clinic_flutter_desktop_system/constants/colors.dart';
 import 'package:flutter/material.dart';
 
 class AppTable extends StatelessWidget {
+  final List<List<String>> rows;
+  final List<String> header;
+  final bool attendBtn;
+  final bool payBtn;
+  final bool cancelBtn;
+
   const AppTable({
     Key? key,
     required this.header,
     required this.rows,
+    this.attendBtn = true,
+    this.payBtn = true,
+    this.cancelBtn = true,
   }) : super(key: key);
-
-  final List<List<String>> rows;
-  final List<String> header;
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +56,15 @@ class AppTable extends StatelessWidget {
               children: List.generate(
                 rows.length,
                 (i) {
-                  return AppRow(values: rows[i]);
+                  Client client = clients.firstWhere(
+                    (e) => e.id.toString() == rows[i][0],
+                  );
+                  return AppRow(
+                    values: rows[i],
+                    attendBtn: attendBtn,
+                    payBtn: payBtn,
+                    cancelBtn: cancelBtn,
+                  );
                 },
               ),
             ),

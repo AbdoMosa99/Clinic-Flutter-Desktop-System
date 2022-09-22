@@ -14,6 +14,6 @@ class ClientsBody extends StatelessWidget {
         return clients[i].toList();
       },
     );
-    return AppTable(header: header, rows: rows);
+    return AppTable(header: header, rows: rows, cancelBtn: false);
   }
 }
