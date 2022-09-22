@@ -1,5 +1,7 @@
 import 'package:clinic_flutter_desktop_system/components/body.dart';
 import 'package:clinic_flutter_desktop_system/components/header.dart';
+import 'package:clinic_flutter_desktop_system/components/Row_attendance_table.dart';
+import 'package:clinic_flutter_desktop_system/components/attendance_table.dart';
 import 'package:clinic_flutter_desktop_system/constants/colors.dart';
 import 'package:flutter/material.dart';
 

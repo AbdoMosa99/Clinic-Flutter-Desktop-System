@@ -1,57 +1,59 @@
 import 'dart:async';
 import 'package:path/path.dart' as path;
-import 'package:sqflite/sqflite.dart';
+//import 'package:sqflite/sqflite.dart';
+import 'package:sqflite_common/sqlite_api.dart';
+import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 import 'models.dart';
 
 class ClinicDatabase {
   late Database database;
 
   Future<void> open() async {
-    database = await openDatabase(
-      path.join(await getDatabasesPath(), 'clinic.db'),
-      onCreate: (db, version) {
-        db.execute(
-          '''
-            CREATE TABLE client(
-            id INTEGER PRIMARY KEY AUTOINCREMENT, 
-            name TEXT NOT NULL UNIQUE, 
-            phone TEXT,
-            present BOOLEAN DEFAULT false
-          )
-          ''',
-        );
-        db.execute(
-          '''
-            CREATE TABLE attendance(
-              timestamp TEXT PRIMARY KEY,
-              clientId INTEGER NOT NULL
-            )
-          ''',
-        );
-        db.execute(
-          '''
-            CREATE TABLE owe(
-            timestamp TEXT PRIMARY KEY,
-            clientId INTEGER NOT NULL,
-            totalAmount INTEGER NOT NULL CHECK (totalAmount >= 0),
-            remainingAmount INTEGER NOT NULL CHECK (remainingAmount >= 0),
-            reason TEXT NOT NULL
-          )
-          ''',
-        );
-        db.execute(
-          '''
-            CREATE TABLE payment(
-              timestamp TEXT PRIMARY KEY,
-              clientId INTEGER NOT NULL,
-              amount INTEGER NOT NULL CHECK (amount >= 0), 
-              reason TEXT
-            )
-          ''',
-        );
-      },
-      version: 1,
+    //sqfliteFfiInit();
+    var databaseFactory = databaseFactoryFfi;
+    database = await databaseFactory.openDatabase(path.join('clinic.db'));
+
+
+    await database.execute(
+      '''
+        CREATE TABLE IF NOT EXISTS client (
+        id INTEGER PRIMARY KEY AUTOINCREMENT, 
+        name TEXT NOT NULL UNIQUE, 
+        phone TEXT,
+        present BOOLEAN DEFAULT false
+      )
+      ''',
     );
+    await database.execute(
+      '''
+        CREATE TABLE IF NOT EXISTS attendance(
+          timestamp TEXT PRIMARY KEY,
+          clientId INTEGER NOT NULL
+        )
+      ''',
+    );
+    await database.execute(
+      '''
+        CREATE TABLE IF NOT EXISTS owe(
+        timestamp TEXT PRIMARY KEY,
+        clientId INTEGER NOT NULL,
+        totalAmount INTEGER NOT NULL CHECK (totalAmount >= 0),
+        remainingAmount INTEGER NOT NULL CHECK (remainingAmount >= 0),
+        reason TEXT NOT NULL
+      )
+      ''',
+    );
+    await database.execute(
+      '''
+        CREATE TABLE IF NOT EXISTS payment(
+          timestamp TEXT PRIMARY KEY,
+          clientId INTEGER NOT NULL,
+          amount INTEGER NOT NULL CHECK (amount >= 0), 
+          reason TEXT
+        )
+      ''',
+    );
+
   }
 
   /* Inserting Into DB */
@@ -121,9 +123,7 @@ class ClinicDatabase {
       'client',
     );
 
-    return List.generate(maps.length, (i) {
-      return Client.fromMap(maps[i]);
-    });
+    return List.generate(maps.length, (i) => Client.fromMap(maps[i]));
   }
 
   Future<Owe> getOwe(int clientId) async {

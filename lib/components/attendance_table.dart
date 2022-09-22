@@ -2,17 +2,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:clinic_flutter_desktop_system/constants/colors.dart';
 import 'package:flutter/material.dart';
 
-import 'Row_attendance_table.dart';
+class AttendanceTable extends StatelessWidget {
+  const AttendanceTable({
+    Key? key,
+    required this.rowsList,
+    }) : super(key: key);
 
+    final List<Widget> rowsList;
 
-class AttendanceTable extends StatefulWidget {
-  const AttendanceTable({Key? key}) : super(key: key);
-
-  @override
-  _AttendanceTableState createState() => _AttendanceTableState();
-}
-
-class _AttendanceTableState extends State<AttendanceTable> {
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -69,12 +66,7 @@ class _AttendanceTableState extends State<AttendanceTable> {
           ),
           Expanded(
             child: ListView(
-              children: [
-                RowAttendanceTable(number: 1, name: "مصطفي امين جابر", reason: "تنظيف اسنان",),
-                RowAttendanceTable(number: 2, name: "عبدالرحمن محمد موسي", reason: "متابعة تقويم",),
-                RowAttendanceTable(number: 3, name: "احمد محروس اليمني", reason: "كشف",),
-
-              ],
+              children: rowsList
             ),
           )
 

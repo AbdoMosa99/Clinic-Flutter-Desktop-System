@@ -23,10 +23,10 @@ class Client {
 
   factory Client.fromMap(Map<String, dynamic> map) {
     return Client(
-      id: int.parse(map['id']),
+      id: map['id'],
       name: map['name'],
       phone: map['phone'],
-      present: int.parse(map['present']) == 1,
+      present: map['present'] == 1,
     );
   }
 

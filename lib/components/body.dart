@@ -2,7 +2,7 @@ import 'package:clinic_flutter_desktop_system/constants/colors.dart';
 import 'package:clinic_flutter_desktop_system/data.dart';
 import 'package:flutter/material.dart';
 import 'package:textfield_search/textfield_search.dart';
-
+import 'Row_attendance_table.dart';
 import 'attendance_table.dart';
 
 class Body extends StatelessWidget {
@@ -116,8 +116,41 @@ class Body extends StatelessWidget {
                     borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(20.0),
                         bottomRight: Radius.circular(20.0),
-                        bottomLeft: Radius.circular(20.0))),
-                child: AttendanceTable()),
+                        bottomLeft: Radius.circular(20.0)
+                    )
+                ),
+                child: AttendanceTable(
+                  rowsList: [
+                    RowAttendanceTable(number: 1, name: "مصطفي امين جابر", reason: "تنظيف اسنان",),
+                    RowAttendanceTable(number: 2, name: "عبدالرحمن محمد موسي", reason: "متابعة تقويم",),
+                    RowAttendanceTable(number: 3, name: "احمد محروس اليمني", reason: "كشف",),
+                    RowAttendanceTable(number: 1, name: "مصطفي امين جابر", reason: "تنظيف اسنان",),
+                    RowAttendanceTable(number: 2, name: "عبدالرحمن محمد موسي", reason: "متابعة تقويم",),
+                    RowAttendanceTable(number: 3, name: "احمد محروس اليمني", reason: "كشف",),
+                    RowAttendanceTable(number: 1, name: "مصطفي امين جابر", reason: "تنظيف اسنان",),
+                    RowAttendanceTable(number: 2, name: "عبدالرحمن محمد موسي", reason: "متابعة تقويم",),
+                    RowAttendanceTable(number: 3, name: "احمد محروس اليمني", reason: "كشف",),
+                    RowAttendanceTable(number: 1, name: "مصطفي امين جابر", reason: "تنظيف اسنان",),
+                    RowAttendanceTable(number: 2, name: "عبدالرحمن محمد موسي", reason: "متابعة تقويم",),
+                    RowAttendanceTable(number: 3, name: "احمد محروس اليمني", reason: "كشف",),
+                    RowAttendanceTable(number: 1, name: "مصطفي امين جابر", reason: "تنظيف اسنان",),
+                    RowAttendanceTable(number: 2, name: "عبدالرحمن محمد موسي", reason: "متابعة تقويم",),
+                    RowAttendanceTable(number: 3, name: "احمد محروس اليمني", reason: "كشف",),
+                    RowAttendanceTable(number: 1, name: "مصطفي امين جابر", reason: "تنظيف اسنان",),
+                    RowAttendanceTable(number: 2, name: "عبدالرحمن محمد موسي", reason: "متابعة تقويم",),
+                    RowAttendanceTable(number: 3, name: "احمد محروس اليمني", reason: "كشف",),
+                    RowAttendanceTable(number: 1, name: "مصطفي امين جابر", reason: "تنظيف اسنان",),
+                    RowAttendanceTable(number: 2, name: "عبدالرحمن محمد موسي", reason: "متابعة تقويم",),
+                    RowAttendanceTable(number: 3, name: "احمد محروس اليمني", reason: "كشف",),
+                    RowAttendanceTable(number: 1, name: "مصطفي امين جابر", reason: "تنظيف اسنان",),
+                    RowAttendanceTable(number: 2, name: "عبدالرحمن محمد موسي", reason: "متابعة تقويم",),
+                    RowAttendanceTable(number: 3, name: "احمد محروس اليمني", reason: "كشف",),
+                    RowAttendanceTable(number: 1, name: "مصطفي امين جابر", reason: "تنظيف اسنان",),
+                    RowAttendanceTable(number: 2, name: "عبدالرحمن محمد موسي", reason: "متابعة تقويم",),
+                    RowAttendanceTable(number: 3, name: "احمد محروس اليمني", reason: "كشف",),
+                  ],
+                ),
+            ),
           ),
         ],
       ),
