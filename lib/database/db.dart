@@ -1,18 +1,17 @@
 import 'dart:async';
 import 'package:path/path.dart' as path;
-//import 'package:sqflite/sqflite.dart';
 import 'package:sqflite_common/sqlite_api.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 import 'models.dart';
 
 class ClinicDatabase {
   late Database database;
+  DatabaseFactory databaseFactory = databaseFactoryFfi;
+  String dbPath = path.join('clinic.db');
 
   Future<void> open() async {
     //sqfliteFfiInit();
-    var databaseFactory = databaseFactoryFfi;
-    database = await databaseFactory.openDatabase(path.join('clinic.db'));
-
+    database = await databaseFactory.openDatabase(dbPath);
 
     await database.execute(
       '''
@@ -28,7 +27,8 @@ class ClinicDatabase {
       '''
         CREATE TABLE IF NOT EXISTS attendance(
           timestamp TEXT PRIMARY KEY,
-          clientId INTEGER NOT NULL
+          clientId INTEGER NOT NULL,
+          reason TEXT
         )
       ''',
     );
@@ -53,7 +53,6 @@ class ClinicDatabase {
         )
       ''',
     );
-
   }
 
   /* Inserting Into DB */
@@ -62,6 +61,7 @@ class ClinicDatabase {
     await database.insert(
       'client',
       client.toMap(),
+      conflictAlgorithm: ConflictAlgorithm.replace,
     );
   }
 
@@ -165,6 +165,16 @@ class ClinicDatabase {
       'attendance',
       where: "timestamp LIKE ?",
       whereArgs: [dateTime.toString().substring(0, 10)],
+    );
+
+    return List.generate(maps.length, (i) {
+      return Attendance.fromMap(maps[i]);
+    });
+  }
+
+  Future<List<Attendance>> getAttendance() async {
+    final List<Map<String, dynamic>> maps = await database.query(
+      'attendance',
     );
 
     return List.generate(maps.length, (i) {

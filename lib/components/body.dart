@@ -1,14 +1,33 @@
+import 'package:clinic_flutter_desktop_system/components/attendance.dart';
+import 'package:clinic_flutter_desktop_system/components/clients.dart';
 import 'package:clinic_flutter_desktop_system/constants/colors.dart';
 import 'package:clinic_flutter_desktop_system/data.dart';
 import 'package:flutter/material.dart';
 import 'package:textfield_search/textfield_search.dart';
-import 'Row_attendance_table.dart';
-import 'attendance_table.dart';
+import 'row.dart';
+import 'table.dart';
 
-class Body extends StatelessWidget {
-  final Widget child;
+class Body extends StatefulWidget {
+  Widget child;
+  String title;
 
-  const Body({key, required this.child}) : super(key: key);
+  Body({
+    key,
+    required this.child,
+    required this.title,
+  }) : super(key: key);
+
+  @override
+  State<Body> createState() => _BodyState();
+}
+
+class _BodyState extends State<Body> {
+  void update(Widget child, String title) {
+    setState(() {
+      widget.child = child;
+      widget.title = title;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,10 +49,10 @@ class Body extends StatelessWidget {
                         top: Radius.circular(20.0),
                       ),
                     ),
-                    child: const Center(
+                    child: Center(
                       child: Text(
-                        "اليوم",
-                        style: TextStyle(
+                        widget.title,
+                        style: const TextStyle(
                           color: Colors.black,
                           fontSize: 32.0,
                           fontWeight: FontWeight.bold,
@@ -68,7 +87,29 @@ class Body extends StatelessWidget {
                     width: 80.0,
                   ),
                   TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      update(AttendanceBody(), "اليوم");
+                    },
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 15.0, vertical: 8.0),
+                      decoration: const BoxDecoration(
+                        color: AppColors.secondary,
+                        borderRadius: BorderRadius.all(Radius.circular(12.0)),
+                      ),
+                      child: const Text(
+                        "اليوم",
+                        style: TextStyle(
+                          fontSize: 24.0,
+                          color: Colors.black,
+                        ),
+                      ),
+                    ),
+                  ),
+                  TextButton(
+                    onPressed: () {
+                      update(ClientsBody(), "الكل");
+                    },
                     child: Container(
                       padding: const EdgeInsets.symmetric(
                           horizontal: 15.0, vertical: 8.0),
@@ -110,46 +151,14 @@ class Body extends StatelessWidget {
           Expanded(
             flex: 9,
             child: Container(
-                width: double.infinity,
-                decoration: const BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(20.0),
-                        bottomRight: Radius.circular(20.0),
-                        bottomLeft: Radius.circular(20.0)
-                    )
-                ),
-                child: AttendanceTable(
-                  rowsList: [
-                    RowAttendanceTable(number: 1, name: "مصطفي امين جابر", reason: "تنظيف اسنان",),
-                    RowAttendanceTable(number: 2, name: "عبدالرحمن محمد موسي", reason: "متابعة تقويم",),
-                    RowAttendanceTable(number: 3, name: "احمد محروس اليمني", reason: "كشف",),
-                    RowAttendanceTable(number: 1, name: "مصطفي امين جابر", reason: "تنظيف اسنان",),
-                    RowAttendanceTable(number: 2, name: "عبدالرحمن محمد موسي", reason: "متابعة تقويم",),
-                    RowAttendanceTable(number: 3, name: "احمد محروس اليمني", reason: "كشف",),
-                    RowAttendanceTable(number: 1, name: "مصطفي امين جابر", reason: "تنظيف اسنان",),
-                    RowAttendanceTable(number: 2, name: "عبدالرحمن محمد موسي", reason: "متابعة تقويم",),
-                    RowAttendanceTable(number: 3, name: "احمد محروس اليمني", reason: "كشف",),
-                    RowAttendanceTable(number: 1, name: "مصطفي امين جابر", reason: "تنظيف اسنان",),
-                    RowAttendanceTable(number: 2, name: "عبدالرحمن محمد موسي", reason: "متابعة تقويم",),
-                    RowAttendanceTable(number: 3, name: "احمد محروس اليمني", reason: "كشف",),
-                    RowAttendanceTable(number: 1, name: "مصطفي امين جابر", reason: "تنظيف اسنان",),
-                    RowAttendanceTable(number: 2, name: "عبدالرحمن محمد موسي", reason: "متابعة تقويم",),
-                    RowAttendanceTable(number: 3, name: "احمد محروس اليمني", reason: "كشف",),
-                    RowAttendanceTable(number: 1, name: "مصطفي امين جابر", reason: "تنظيف اسنان",),
-                    RowAttendanceTable(number: 2, name: "عبدالرحمن محمد موسي", reason: "متابعة تقويم",),
-                    RowAttendanceTable(number: 3, name: "احمد محروس اليمني", reason: "كشف",),
-                    RowAttendanceTable(number: 1, name: "مصطفي امين جابر", reason: "تنظيف اسنان",),
-                    RowAttendanceTable(number: 2, name: "عبدالرحمن محمد موسي", reason: "متابعة تقويم",),
-                    RowAttendanceTable(number: 3, name: "احمد محروس اليمني", reason: "كشف",),
-                    RowAttendanceTable(number: 1, name: "مصطفي امين جابر", reason: "تنظيف اسنان",),
-                    RowAttendanceTable(number: 2, name: "عبدالرحمن محمد موسي", reason: "متابعة تقويم",),
-                    RowAttendanceTable(number: 3, name: "احمد محروس اليمني", reason: "كشف",),
-                    RowAttendanceTable(number: 1, name: "مصطفي امين جابر", reason: "تنظيف اسنان",),
-                    RowAttendanceTable(number: 2, name: "عبدالرحمن محمد موسي", reason: "متابعة تقويم",),
-                    RowAttendanceTable(number: 3, name: "احمد محروس اليمني", reason: "كشف",),
-                  ],
-                ),
+              width: double.infinity,
+              decoration: const BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(20.0),
+                      bottomRight: Radius.circular(20.0),
+                      bottomLeft: Radius.circular(20.0))),
+              child: widget.child,
             ),
           ),
         ],

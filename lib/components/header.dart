@@ -37,24 +37,6 @@ class Header extends StatelessWidget {
                 color: Colors.white,
               ),
             ),
-            TextButton(
-              onPressed: () {},
-              child: Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 15.0, vertical: 8.0),
-                decoration: const BoxDecoration(
-                  color: AppColors.secondary,
-                  borderRadius: BorderRadius.all(Radius.circular(12.0)),
-                ),
-                child: const Text(
-                  "يوم جديد",
-                  style: TextStyle(
-                    fontSize: 24.0,
-                    color: Colors.black,
-                  ),
-                ),
-              ),
-            ),
           ],
         ),
       ),

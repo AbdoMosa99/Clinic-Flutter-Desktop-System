@@ -34,34 +34,50 @@ class Client {
   String toString() {
     return 'Client<name: $name, phone: $phone>';
   }
+
+  List<String> toList() {
+    return [
+      id.toString(),
+      name,
+      phone,
+    ];
+  }
 }
 
 class Attendance {
   final TimeStamp timestamp;
   final int clientId;
+  String reason;
 
   Attendance({
     required this.timestamp,
     required this.clientId,
+    this.reason = "",
   });
 
   Map<String, dynamic> toMap() {
     return {
       'timestamp': timestamp.toString(),
       'clientId': clientId,
+      'reason': reason,
     };
   }
 
   factory Attendance.fromMap(Map<String, dynamic> map) {
     return Attendance(
       timestamp: TimeStamp.fromString(map['timestamp']),
-      clientId: int.parse(map['clientId']),
+      clientId: map['clientId'],
+      reason: map['reason'],
     );
+  }
+
+  List<dynamic> toList() {
+    return [timestamp, clientId, reason];
   }
 
   @override
   String toString() {
-    return 'Attendance<timestamp: $timestamp, client: $clientId>';
+    return 'Attendance<timestamp: $timestamp, client: $clientId, reason: $reason>';
   }
 }
 
@@ -93,9 +109,9 @@ class Owe {
   factory Owe.fromMap(Map<String, dynamic> map) {
     return Owe(
       timestamp: TimeStamp.fromString(map['timestamp']),
-      clientId: int.parse(map['clientId']),
-      totalAmount: int.parse(map['totalAmount']),
-      remainingAmount: int.parse(map['remainingAmount']),
+      clientId: map['clientId'],
+      totalAmount: map['totalAmount'],
+      remainingAmount: map['remainingAmount'],
       reason: map['reason'],
     );
   }
@@ -131,8 +147,8 @@ class Payment {
   factory Payment.fromMap(Map<String, dynamic> map) {
     return Payment(
       timestamp: TimeStamp.fromString(map['timestamp']),
-      clientId: int.parse(map['clientId']),
-      amount: int.parse(map['amount']),
+      clientId: map['clientId'],
+      amount: map['amount'],
       reason: map['reason'],
     );
   }

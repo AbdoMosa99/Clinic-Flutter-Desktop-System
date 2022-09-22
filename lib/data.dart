@@ -7,12 +7,9 @@ late final ClinicDatabase db;
 late List<Client> clients;
 
 Future<bool> init() async {
-  //insertData();
+  // await insertData();
   db = ClinicDatabase();
-
   await db.open();
-
-  clients = [];
   clients = await db.getClients();
 
   return true;

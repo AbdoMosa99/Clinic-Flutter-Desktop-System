@@ -1,7 +1,9 @@
+import 'package:clinic_flutter_desktop_system/components/attendance.dart';
 import 'package:clinic_flutter_desktop_system/components/body.dart';
+import 'package:clinic_flutter_desktop_system/components/clients.dart';
 import 'package:clinic_flutter_desktop_system/components/header.dart';
-import 'package:clinic_flutter_desktop_system/components/Row_attendance_table.dart';
-import 'package:clinic_flutter_desktop_system/components/attendance_table.dart';
+import 'package:clinic_flutter_desktop_system/components/row.dart';
+import 'package:clinic_flutter_desktop_system/components/table.dart';
 import 'package:clinic_flutter_desktop_system/constants/colors.dart';
 import 'package:flutter/material.dart';
 
@@ -20,15 +22,16 @@ class _HomePageState extends State<HomePage> {
       child: Scaffold(
         backgroundColor: AppColors.primaryLight,
         body: Column(
-          children: const [
-            Expanded(
+          children: [
+            const Expanded(
               flex: 1,
               child: Header(),
             ),
             Expanded(
               flex: 9,
               child: Body(
-                child: Text(""),
+                title: "اليوم",
+                child: const AttendanceBody(),
               ),
             ),
           ],
