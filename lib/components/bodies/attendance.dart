@@ -1,7 +1,7 @@
-import 'package:clinic_flutter_desktop_system/components/table.dart';
+import 'package:clinic_flutter_desktop_system/components/table/table.dart';
 import 'package:flutter/material.dart';
 
-import '../data.dart';
+import '../../data.dart';
 
 class AttendanceBody extends StatelessWidget {
   const AttendanceBody({super.key});

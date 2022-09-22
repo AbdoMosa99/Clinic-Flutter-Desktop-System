@@ -1,11 +1,11 @@
-import 'package:clinic_flutter_desktop_system/components/attendance.dart';
-import 'package:clinic_flutter_desktop_system/components/clients.dart';
+import 'package:clinic_flutter_desktop_system/components/bodies/attendance.dart';
+import 'package:clinic_flutter_desktop_system/components/bodies/clients.dart';
 import 'package:clinic_flutter_desktop_system/constants/colors.dart';
 import 'package:clinic_flutter_desktop_system/data.dart';
 import 'package:flutter/material.dart';
 import 'package:textfield_search/textfield_search.dart';
-import 'row.dart';
-import 'table.dart';
+import '../table/row.dart';
+import '../table/table.dart';
 
 class Body extends StatefulWidget {
   Widget child;
@@ -64,13 +64,7 @@ class _BodyState extends State<Body> {
                     width: 10.0,
                   ),
                   Expanded(
-                    child: Container(
-                        height: 45,
-                        decoration: const BoxDecoration(
-                          color: AppColors.grey,
-                          borderRadius: BorderRadius.all(Radius.circular(6.0)),
-                        ),
-                        child: Padding(
+                    child: Padding(
                           padding: const EdgeInsets.only(right: 4.0),
                           child: TextFieldSearch(
                             initialList: List.generate(
@@ -80,9 +74,31 @@ class _BodyState extends State<Body> {
                             label: "البحث عن عميل",
                             controller: TextEditingController(),
                             textStyle: const TextStyle(fontSize: 15.0),
+
+                            decoration: InputDecoration(
+                              focusedBorder:OutlineInputBorder(
+                                borderSide: const BorderSide(color: AppColors.primary, width: 2.0),
+                                borderRadius: BorderRadius.circular(12.0),
+                              ),
+                              border: OutlineInputBorder(
+                                borderSide: const BorderSide(color: AppColors.grey, width: 2.0),
+                                borderRadius: BorderRadius.circular(12.0),
+                              ),
+
+                              filled: true,
+                              fillColor: AppColors.grey,
+
+                              labelText: "البحث عن عميل",
+                              labelStyle: const TextStyle(
+                                fontSize: 18.0,
+                                fontWeight: FontWeight.w300,
+                                color: Colors.black
+                              )
+                            ),
+
                           ),
                         )),
-                  ),
+
                   const SizedBox(
                     width: 80.0,
                   ),
@@ -92,7 +108,7 @@ class _BodyState extends State<Body> {
                     },
                     child: Container(
                       padding: const EdgeInsets.symmetric(
-                          horizontal: 15.0, vertical: 8.0),
+                          horizontal: 35.0, vertical: 8.0),
                       decoration: const BoxDecoration(
                         color: AppColors.secondary,
                         borderRadius: BorderRadius.all(Radius.circular(12.0)),

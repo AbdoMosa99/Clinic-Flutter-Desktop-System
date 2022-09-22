@@ -1,8 +1,8 @@
-import 'package:clinic_flutter_desktop_system/components/attend_dialog.dart';
+import 'package:clinic_flutter_desktop_system/components/dialogs/attend_dialog.dart';
 import 'package:clinic_flutter_desktop_system/data.dart';
 import 'package:flutter/material.dart';
 
-import '../constants/colors.dart';
+import '../../constants/colors.dart';
 
 class AppRow extends StatelessWidget {
   AppRow({
@@ -59,19 +59,23 @@ class AppRow extends StatelessWidget {
                             },
                             child: Container(
                               width: 100,
-                              height: 40,
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 10.0, vertical: 3.0),
+                              height: 35,
+                              padding: const EdgeInsets.only(
+                                    bottom: 2.0
+                                  ),
                               decoration: const BoxDecoration(
                                 color: Colors.green,
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(12.0)),
                               ),
-                              child: const Text(
-                                "حضور",
-                                style: TextStyle(
-                                  fontSize: 20.0,
-                                  color: Colors.white,
+                              child: Align(
+                                alignment: Alignment.center,
+                                child: const Text(
+                                  "حضور",
+                                  style: TextStyle(
+                                    fontSize: 20.0,
+                                    color: Colors.white,
+                                  ),
                                 ),
                               ),
                             ),
@@ -89,19 +93,23 @@ class AppRow extends StatelessWidget {
                             },
                             child: Container(
                               width: 100,
-                              height: 40,
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 16.0, vertical: 3.0),
+                              height: 35,
+                              padding: const EdgeInsets.only(
+                                  bottom: 2.0
+                                  ),
                               decoration: const BoxDecoration(
                                 color: AppColors.grey,
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(12.0)),
                               ),
-                              child: const Text(
-                                "دفع",
-                                style: TextStyle(
-                                  fontSize: 20.0,
-                                  color: Colors.black,
+                              child: Align(
+                                alignment: Alignment.center,
+                                child: const Text(
+                                  "دفع",
+                                  style: TextStyle(
+                                    fontSize: 20.0,
+                                    color: Colors.black,
+                                  ),
                                 ),
                               ),
                             ),

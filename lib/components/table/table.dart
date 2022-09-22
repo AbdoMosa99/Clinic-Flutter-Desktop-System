@@ -1,4 +1,4 @@
-import 'package:clinic_flutter_desktop_system/components/row.dart';
+import 'package:clinic_flutter_desktop_system/components/table/row.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:clinic_flutter_desktop_system/constants/colors.dart';
 import 'package:flutter/material.dart';
