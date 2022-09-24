@@ -1,7 +1,4 @@
 import 'package:clinic_flutter_desktop_system/components/table/row.dart';
-import 'package:clinic_flutter_desktop_system/data.dart';
-import 'package:clinic_flutter_desktop_system/database/models.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:clinic_flutter_desktop_system/constants/colors.dart';
 import 'package:flutter/material.dart';
 
@@ -56,9 +53,6 @@ class AppTable extends StatelessWidget {
               children: List.generate(
                 rows.length,
                 (i) {
-                  Client client = clients.firstWhere(
-                    (e) => e.id.toString() == rows[i][0],
-                  );
                   return AppRow(
                     values: rows[i],
                     attendBtn: attendBtn,

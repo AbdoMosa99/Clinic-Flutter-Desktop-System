@@ -47,7 +47,7 @@ class AppRow extends StatelessWidget {
                       children: [
                         if (attendBtn)
                           Expanded(
-                            child: AttendButton(id: values[0]),
+                            child: AttendButton(values[0]),
                           ),
                         if (payBtn)
                           Expanded(

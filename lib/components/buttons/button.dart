@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 
 class AppButton extends StatelessWidget {
   final String id;
-  void Function() onPressed;
+  final void Function() onPressed;
   final Color bgColor;
   final Color fgColor;
   final String text;
 
-  AppButton({
+  const AppButton({
     super.key,
     required this.id,
     required this.onPressed,

@@ -2,7 +2,9 @@ import 'package:clinic_flutter_desktop_system/components/bodies/attendance.dart'
 import 'package:clinic_flutter_desktop_system/components/bodies/clients.dart';
 import 'package:clinic_flutter_desktop_system/constants/colors.dart';
 import 'package:clinic_flutter_desktop_system/data.dart';
+import 'package:clinic_flutter_desktop_system/state/provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:textfield_search/textfield_search.dart';
 
 class Body extends StatefulWidget {
@@ -64,32 +66,34 @@ class _BodyState extends State<Body> {
                   Expanded(
                       child: Padding(
                     padding: const EdgeInsets.only(right: 4.0),
-                    child: TextFieldSearch(
-                      initialList: List.generate(
-                        clients.length,
-                        (i) => clients[i].name,
+                    child: Consumer<BodyModel>(
+                      builder: (context, body, child) => TextFieldSearch(
+                        initialList: List.generate(
+                          body.clients.length,
+                          (i) => body.clients[i].name,
+                        ),
+                        label: "البحث عن عميل",
+                        controller: TextEditingController(),
+                        textStyle: const TextStyle(fontSize: 15.0),
+                        decoration: InputDecoration(
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: const BorderSide(
+                                  color: AppColors.primary, width: 2.0),
+                              borderRadius: BorderRadius.circular(12.0),
+                            ),
+                            border: OutlineInputBorder(
+                              borderSide: const BorderSide(
+                                  color: AppColors.grey, width: 2.0),
+                              borderRadius: BorderRadius.circular(12.0),
+                            ),
+                            filled: true,
+                            fillColor: AppColors.grey,
+                            labelText: "البحث عن عميل",
+                            labelStyle: const TextStyle(
+                                fontSize: 18.0,
+                                fontWeight: FontWeight.w300,
+                                color: Colors.black)),
                       ),
-                      label: "البحث عن عميل",
-                      controller: TextEditingController(),
-                      textStyle: const TextStyle(fontSize: 15.0),
-                      decoration: InputDecoration(
-                          focusedBorder: OutlineInputBorder(
-                            borderSide: const BorderSide(
-                                color: AppColors.primary, width: 2.0),
-                            borderRadius: BorderRadius.circular(12.0),
-                          ),
-                          border: OutlineInputBorder(
-                            borderSide: const BorderSide(
-                                color: AppColors.grey, width: 2.0),
-                            borderRadius: BorderRadius.circular(12.0),
-                          ),
-                          filled: true,
-                          fillColor: AppColors.grey,
-                          labelText: "البحث عن عميل",
-                          labelStyle: const TextStyle(
-                              fontSize: 18.0,
-                              fontWeight: FontWeight.w300,
-                              color: Colors.black)),
                     ),
                   )),
                   const SizedBox(

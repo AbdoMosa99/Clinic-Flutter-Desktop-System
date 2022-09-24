@@ -2,39 +2,44 @@ import 'package:clinic_flutter_desktop_system/components/dialogs/attend_dialog.d
 import 'package:clinic_flutter_desktop_system/constants/colors.dart';
 import 'package:clinic_flutter_desktop_system/data.dart';
 import 'package:clinic_flutter_desktop_system/database/models.dart';
+import 'package:clinic_flutter_desktop_system/state/provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import 'button.dart';
 
 class AttendButton extends StatelessWidget {
   final String id;
 
-  const AttendButton({super.key, required this.id});
+  const AttendButton(this.id, {super.key});
 
   @override
   Widget build(BuildContext context) {
-    Client client = clients.firstWhere(
-      (e) => e.id.toString() == id,
-    );
-    return AppButton(
-      id: id,
-      onPressed: () {
-        if (!client.present) {
-          showDialog(
-            context: context,
-            builder: (context) {
-              return AtttendDialog(client);
-            },
-          );
-        } else {
-          client.present = false;
-          client.reason = "";
-          db.updateClient(client);
-        }
+    return Consumer<BodyModel>(
+      builder: (context, body, child) {
+        Client client = body.getClient(id);
+        return AppButton(
+          id: id,
+          onPressed: () {
+            if (!client.present) {
+              showDialog(
+                context: context,
+                builder: (context) {
+                  return AtttendDialog(client);
+                },
+              );
+            } else {
+              client.present = false;
+              client.reason = "";
+              db.updateClient(client);
+              body.updateClient(client);
+            }
+          },
+          bgColor: Colors.green,
+          fgColor: Colors.white,
+          text: client.present ? "✓" : "حضور",
+        );
       },
-      bgColor: Colors.green,
-      fgColor: Colors.white,
-      text: client.present ? "✓" : "حضور",
     );
   }
 }
@@ -46,9 +51,9 @@ class PayButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Client client = clients.firstWhere(
-      (e) => e.id.toString() == id,
-    );
+    BodyModel body = Provider.of<BodyModel>(context);
+    Client client = body.getClient(id);
+
     return AppButton(
       id: id,
       onPressed: () {},
@@ -66,9 +71,9 @@ class CancelButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Client client = clients.firstWhere(
-      (e) => e.id.toString() == id,
-    );
+    BodyModel body = Provider.of<BodyModel>(context);
+    Client client = body.getClient(id);
+
     return AppButton(
       id: id,
       onPressed: () {},

@@ -4,13 +4,13 @@ import 'package:clinic_flutter_desktop_system/database/temp.dart';
 import 'database/models.dart';
 
 late final ClinicDatabase db;
-late List<Client> clients;
+late List<Client> dbClients;
 
 Future<bool> init() async {
   // await insertData();
   db = ClinicDatabase();
   await db.open();
-  clients = await db.getClients();
+  dbClients = await db.getClients();
 
   return true;
 }
