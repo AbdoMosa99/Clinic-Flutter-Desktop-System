@@ -7,6 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:textfield_search/textfield_search.dart';
 
+import '../dialogs/add_client.dart';
+
 class Body extends StatefulWidget {
   Widget child;
   String title;
@@ -140,7 +142,14 @@ class _BodyState extends State<Body> {
                     ),
                   ),
                   TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      showDialog(
+                        context: context,
+                        builder: (context) {
+                          return AddClientDialog();
+                        },
+                      );
+                    },
                     child: Container(
                       padding: const EdgeInsets.symmetric(
                           horizontal: 15.0, vertical: 8.0),
