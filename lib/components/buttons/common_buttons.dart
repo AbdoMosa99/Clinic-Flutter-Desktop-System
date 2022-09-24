@@ -6,6 +6,7 @@ import 'package:clinic_flutter_desktop_system/state/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../dialogs/pay_dialog.dart';
 import 'button.dart';
 
 class AttendButton extends StatelessWidget {
@@ -56,7 +57,15 @@ class PayButton extends StatelessWidget {
 
     return AppButton(
       id: id,
-      onPressed: () {},
+      onPressed: () async {
+        Owe owe = await db.getOwe(client.id);
+        showDialog(
+            context: context,
+            builder: (context) {
+              return PayDialog(client, owe: owe);
+            },
+        );
+      },
       bgColor: AppColors.grey,
       fgColor: Colors.black,
       text: "دفع",

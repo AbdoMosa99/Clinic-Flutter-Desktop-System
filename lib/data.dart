@@ -7,6 +7,7 @@ late final ClinicDatabase db;
 late List<Client> dbClients;
 
 Future<bool> init() async {
+  //await db.deleteAll();
   //await insertData();
   db = ClinicDatabase();
   await db.open();

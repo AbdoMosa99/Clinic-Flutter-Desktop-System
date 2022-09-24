@@ -83,7 +83,7 @@ class AtttendDialog extends StatelessWidget {
                 ),
                 Expanded(
                   child: TextButton(
-                    onPressed: () {
+                    onPressed: () async {
                       Attendance attendance = Attendance(
                         timestamp: TimeStamp(DateTime.now()),
                         clientId: client.id,
@@ -92,7 +92,18 @@ class AtttendDialog extends StatelessWidget {
                       db.insertAttendance(attendance);
                       client.present = true;
                       client.reason = attendance.reason;
+
                       db.updateClient(client);
+
+                      Owe owe = await db.getOwe(client.id);
+
+                      if(attendance.reason == "متابعة تقويم" && owe.reason != "متابعة تقويم"){
+                        owe.totalAmount = 20000;
+                        owe.remainingAmount = 20000;
+                        owe.reason = "متابعة تقويم";
+                        db.updateOwe(owe);
+                      }
+
                       body.updateClient(client);
                       Navigator.pop(context);
                     },

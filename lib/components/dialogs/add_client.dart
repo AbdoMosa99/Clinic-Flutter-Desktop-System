@@ -110,6 +110,15 @@ class AddClientDialog extends StatelessWidget {
                         );
                         db.insertClient(client);
 
+                        Owe owe = Owe(
+                          timestamp: TimeStamp(DateTime.now()),
+                          clientId: client.id,
+                          totalAmount: 0,
+                          remainingAmount: 0,
+                          reason: "البداية"
+                        );
+                        db.insertOwe(owe);
+
                         body.addClient(client);
                         Navigator.pop(context);
                       },
