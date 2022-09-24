@@ -21,12 +21,13 @@ class AttendButton extends StatelessWidget {
         Client client = body.getClient(id);
         return AppButton(
           id: id,
-          onPressed: () {
+          onPressed: () async {
             if (!client.present) {
+              Owe owe = await db.getOwe(client.id);
               showDialog(
                 context: context,
                 builder: (context) {
-                  return AtttendDialog(client);
+                  return AtttendDialog(client, owe: owe,);
                 },
               );
             } else {

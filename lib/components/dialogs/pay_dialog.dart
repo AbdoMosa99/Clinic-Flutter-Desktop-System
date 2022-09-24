@@ -163,7 +163,7 @@ class PayDialog extends StatelessWidget {
                         await db.insertPayment(payment);
                         if(reasonController.text == "متابعة تقويم") {
                           owe.remainingAmount = owe.remainingAmount - int.parse(moneyController.text);
-                            await db.updateOwe(owe);
+                          await db.updateOwe(owe);
                         }
                         Navigator.pop(context);
                       },

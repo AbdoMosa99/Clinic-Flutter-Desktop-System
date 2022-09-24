@@ -105,6 +105,7 @@ class AddClientDialog extends StatelessWidget {
                     child: TextButton(
                       onPressed: () {
                         Client client = Client(
+                          id: body.getClients().length + 1,
                           name: nameController.text,
                           phone: numberController.text
                         );
@@ -120,6 +121,7 @@ class AddClientDialog extends StatelessWidget {
                         db.insertOwe(owe);
 
                         body.addClient(client);
+
                         Navigator.pop(context);
                       },
                       child: Container(
