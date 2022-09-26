@@ -105,7 +105,7 @@ class AddClientDialog extends StatelessWidget {
                     child: TextButton(
                       onPressed: () {
                         Client client = Client(
-                          id: body.getClients().length + 1,
+                          id: body.clients.length + 1,
                           name: nameController.text,
                           phone: numberController.text
                         );

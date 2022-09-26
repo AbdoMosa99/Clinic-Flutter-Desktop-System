@@ -172,9 +172,11 @@ class ClinicDatabase {
     });
   }
 
-  Future<List<Attendance>> getAttendance() async {
+  Future<List<Attendance>> getAttendance(int clientId) async {
     final List<Map<String, dynamic>> maps = await database.query(
       'attendance',
+      where: "clientId = ?",
+      whereArgs: [clientId],
     );
 
     return List.generate(maps.length, (i) {

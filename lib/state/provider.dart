@@ -24,9 +24,4 @@ class BodyModel extends ChangeNotifier {
       (e) => e.id.toString() == id,
     );
   }
-
-  List<Client> getClients() {
-    return _clients;
-
-  }
 }

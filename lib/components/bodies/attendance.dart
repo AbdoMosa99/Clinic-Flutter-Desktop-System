@@ -10,7 +10,7 @@ class AttendanceBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<BodyModel>(
       builder: (context, body, child) {
-        List<String> header = ['الدور', 'اسم العميل', 'السبب'];
+        List<String> header = ['الدور  ', ' اسم العميل', 'السبب '];
         List<List<String>> rows = [];
         for (int i = 0; i < body.clients.length; i++) {
           if (body.clients[i].present) {

@@ -1,11 +1,16 @@
 import 'package:clinic_flutter_desktop_system/components/buttons/common_buttons.dart';
 import 'package:flutter/material.dart';
 
-class AppRow extends StatelessWidget {
+import '../../data.dart';
+import '../../database/models.dart';
+import '../../screens/home_page.dart';
+
+class AppRow extends StatefulWidget {
   final List<String> values;
   final bool attendBtn;
   final bool payBtn;
   final bool cancelBtn;
+  final bool toProfile;
 
   const AppRow({
     Key? key,
@@ -13,18 +18,52 @@ class AppRow extends StatelessWidget {
     this.attendBtn = true,
     this.payBtn = true,
     this.cancelBtn = true,
+    this.toProfile = false,
   }) : super(key: key);
 
   @override
+  State<AppRow> createState() => _AppRowState();
+}
+
+class _AppRowState extends State<AppRow> {
+  @override
   Widget build(BuildContext context) {
     List<Widget> items = List.generate(
-      values.length,
+      widget.values.length,
       (i) {
         return Expanded(
-          child: Text(
-            values[i],
-            style: const TextStyle(
-              fontSize: 20.0,
+          child: TextButton(
+          onPressed: () async {
+            List<dynamic> attendance = await db.getAttendance(int.parse(widget.values[0]));
+            List<dynamic> payments = await db.getPayments(attendance[0].clientId);
+
+
+             if(!widget.toProfile){
+                openProfile = true;
+                gAttendance = attendance;
+                gpayment = payments;
+
+                Navigator.pushReplacement(
+                  context,
+                  PageRouteBuilder(
+                      pageBuilder: (context, animation1, animation2) => HomePage(),
+                      transitionDuration: Duration.zero,
+                      reverseTransitionDuration: Duration.zero,
+                  ),
+              );
+
+            }
+
+          },
+            child: Align(
+            alignment: Alignment.centerRight,
+              child: Text(
+                widget.values[i],
+                style: const TextStyle(
+                  fontSize: 20.0,
+                  color: Colors.black
+                ),
+              ),
             ),
           ),
         );
@@ -40,22 +79,22 @@ class AppRow extends StatelessWidget {
             children: [
               ...items,
               Expanded(
-                  flex: 2,
+                  flex: widget.toProfile ? 0 : 2,
                   child: Padding(
-                    padding: const EdgeInsets.only(right: 100.0),
+                    padding: EdgeInsets.only(right: widget.toProfile ? 0 : 100.0),
                     child: Row(
                       children: [
-                        if (attendBtn)
+                        if (widget.attendBtn)
                           Expanded(
-                            child: AttendButton(values[0]),
+                            child: AttendButton(widget.values[0]),
                           ),
-                        if (payBtn)
+                        if (widget.payBtn)
                           Expanded(
-                            child: PayButton(id: values[0]),
+                            child: PayButton(id: widget.values[0]),
                           ),
-                        if (cancelBtn)
+                        if (widget.cancelBtn)
                           Expanded(
-                            child: CancelButton(id: values[0]),
+                            child: CancelButton(id: widget.values[0]),
                           ),
                       ],
                     ),
