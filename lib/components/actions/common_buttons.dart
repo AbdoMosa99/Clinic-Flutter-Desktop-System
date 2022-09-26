@@ -27,7 +27,10 @@ class AttendButton extends StatelessWidget {
               showDialog(
                 context: context,
                 builder: (context) {
-                  return AtttendDialog(client, owe: owe,);
+                  return AtttendDialog(
+                    client,
+                    owe: owe,
+                  );
                 },
               );
             } else {
@@ -61,10 +64,10 @@ class PayButton extends StatelessWidget {
       onPressed: () async {
         Owe owe = await db.getOwe(client.id);
         showDialog(
-            context: context,
-            builder: (context) {
-              return PayDialog(client, owe: owe);
-            },
+          context: context,
+          builder: (context) {
+            return PayDialog(client, owe: owe);
+          },
         );
       },
       bgColor: AppColors.grey,

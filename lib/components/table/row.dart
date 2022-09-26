@@ -1,4 +1,4 @@
-import 'package:clinic_flutter_desktop_system/components/buttons/common_buttons.dart';
+import 'package:clinic_flutter_desktop_system/components/actions/common_buttons.dart';
 import 'package:flutter/material.dart';
 
 import '../../data.dart';
@@ -33,12 +33,13 @@ class _AppRowState extends State<AppRow> {
       (i) {
         return Expanded(
           child: TextButton(
-          onPressed: () async {
-            List<dynamic> attendance = await db.getAttendance(int.parse(widget.values[0]));
-            List<dynamic> payments = await db.getPayments(attendance[0].clientId);
+            onPressed: () async {
+              List<dynamic> attendance =
+                  await db.getAttendance(int.parse(widget.values[0]));
+              List<dynamic> payments =
+                  await db.getPayments(attendance[0].clientId);
 
-
-             if(!widget.toProfile){
+              if (!widget.toProfile) {
                 openProfile = true;
                 gAttendance = attendance;
                 gpayment = payments;
@@ -46,23 +47,19 @@ class _AppRowState extends State<AppRow> {
                 Navigator.pushReplacement(
                   context,
                   PageRouteBuilder(
-                      pageBuilder: (context, animation1, animation2) => HomePage(),
-                      transitionDuration: Duration.zero,
-                      reverseTransitionDuration: Duration.zero,
+                    pageBuilder: (context, animation1, animation2) =>
+                        HomePage(),
+                    transitionDuration: Duration.zero,
+                    reverseTransitionDuration: Duration.zero,
                   ),
-              );
-
-            }
-
-          },
+                );
+              }
+            },
             child: Align(
-            alignment: Alignment.centerRight,
+              alignment: Alignment.centerRight,
               child: Text(
                 widget.values[i],
-                style: const TextStyle(
-                  fontSize: 20.0,
-                  color: Colors.black
-                ),
+                style: const TextStyle(fontSize: 20.0, color: Colors.black),
               ),
             ),
           ),
@@ -81,7 +78,8 @@ class _AppRowState extends State<AppRow> {
               Expanded(
                   flex: widget.toProfile ? 0 : 2,
                   child: Padding(
-                    padding: EdgeInsets.only(right: widget.toProfile ? 0 : 100.0),
+                    padding:
+                        EdgeInsets.only(right: widget.toProfile ? 0 : 100.0),
                     child: Row(
                       children: [
                         if (widget.attendBtn)
