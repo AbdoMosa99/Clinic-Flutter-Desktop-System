@@ -8,7 +8,7 @@ class AppTable extends StatelessWidget {
   final bool attendBtn;
   final bool payBtn;
   final bool cancelBtn;
-  final bool toProfile;
+  final bool isProfile;
 
   const AppTable({
     Key? key,
@@ -17,7 +17,7 @@ class AppTable extends StatelessWidget {
     this.attendBtn = true,
     this.payBtn = true,
     this.cancelBtn = true,
-    this.toProfile = false,
+    this.isProfile = false,
   }) : super(key: key);
 
   @override
@@ -46,7 +46,9 @@ class AppTable extends StatelessWidget {
                     );
                   },
                 ),
-                !toProfile ? const Expanded(flex: 2, child: SizedBox(width: 10)) : const SizedBox()
+                !isProfile
+                    ? const Expanded(flex: 2, child: SizedBox(width: 10))
+                    : const SizedBox()
               ],
             ),
           ),
@@ -60,7 +62,7 @@ class AppTable extends StatelessWidget {
                     attendBtn: attendBtn,
                     payBtn: payBtn,
                     cancelBtn: cancelBtn,
-                    toProfile: toProfile,
+                    isProfile: isProfile,
                   );
                 },
               ),

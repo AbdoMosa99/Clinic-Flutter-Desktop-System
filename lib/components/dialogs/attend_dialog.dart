@@ -1,6 +1,6 @@
 import 'package:clinic_flutter_desktop_system/constants/colors.dart';
 import 'package:clinic_flutter_desktop_system/database/models.dart';
-import 'package:clinic_flutter_desktop_system/state/provider.dart';
+import 'package:clinic_flutter_desktop_system/models/body_model.dart';
 import 'package:clinic_flutter_desktop_system/utility/date.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -96,15 +96,14 @@ class AtttendDialog extends StatelessWidget {
 
                       db.updateClient(client);
 
-
-                      if(attendance.reason == "متابعة تقويم" && owe.reason != "متابعة تقويم"){
+                      if (attendance.reason == "متابعة تقويم" &&
+                          owe.reason != "متابعة تقويم") {
                         owe.totalAmount = 20000;
                         owe.remainingAmount = 20000;
                         owe.reason = "متابعة تقويم";
                         db.updateOwe(owe);
                       }
                       body.updateClient(client);
-
 
                       Navigator.pop(context);
                     },

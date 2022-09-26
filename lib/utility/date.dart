@@ -22,7 +22,7 @@ class TimeStamp {
       }
       period = "مساءاً";
     }
-    return "$period $hour:${dateTime.minute}";
+    return "$hour:${dateTime.minute} $period";
   }
 
   String date() {

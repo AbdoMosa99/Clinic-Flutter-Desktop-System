@@ -1,7 +1,7 @@
 import 'package:clinic_flutter_desktop_system/components/actions/common_buttons.dart';
 import 'package:clinic_flutter_desktop_system/constants/colors.dart';
 import 'package:clinic_flutter_desktop_system/database/models.dart';
-import 'package:clinic_flutter_desktop_system/state/provider.dart';
+import 'package:clinic_flutter_desktop_system/models/body_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -17,6 +17,7 @@ class _SearchFieldState extends State<SearchField> {
   late OverlayEntry _overlayEntry;
   final _focusNode = FocusNode();
   final link = LayerLink();
+  final TextEditingController controller = TextEditingController();
 
   @override
   void initState() {
@@ -37,7 +38,19 @@ class _SearchFieldState extends State<SearchField> {
                   padding: EdgeInsets.zero,
                   shrinkWrap: true,
                   children: matchingClients.map((client) {
-                    return SearchItem(client);
+                    return SearchItem(
+                      client,
+                      go: (event) {
+                        matchingClients.clear();
+                        final body =
+                            Provider.of<BodyModel>(context, listen: false);
+                        body.profileId = client.id.toString();
+                        body.navigate("عميل");
+                        controller.clear();
+                        _focusNode.unfocus();
+                        _overlayEntry.markNeedsBuild();
+                      },
+                    );
                   }).toList(),
                 ),
               ),
@@ -75,6 +88,7 @@ class _SearchFieldState extends State<SearchField> {
       link: link,
       child: TextField(
         focusNode: _focusNode,
+        controller: controller,
         decoration: InputDecoration(
           hintText: "البحث عن عميل",
           focusedBorder: OutlineInputBorder(
@@ -101,22 +115,33 @@ class _SearchFieldState extends State<SearchField> {
 }
 
 class SearchItem extends StatelessWidget {
-  const SearchItem(this.client, {super.key});
+  const SearchItem(this.client, {this.go, super.key});
 
   final Client client;
+  final void Function(PointerUpEvent)? go;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.all(10.0),
-      child: Row(
-        textDirection: TextDirection.rtl,
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(client.name),
-          AttendButton(client.id.toString()),
-        ],
-      ),
+    return Row(
+      textDirection: TextDirection.rtl,
+      children: [
+        Expanded(
+          child: Container(
+            padding: EdgeInsets.all(20.0),
+            child: MouseRegion(
+              cursor: SystemMouseCursors.click,
+              child: Listener(
+                onPointerUp: go,
+                child: Align(
+                  alignment: Alignment.centerRight,
+                  child: Text(client.name),
+                ),
+              ),
+            ),
+          ),
+        ),
+        AttendButton(client.id.toString()),
+      ],
     );
   }
 }

@@ -1,9 +1,7 @@
 import 'package:clinic_flutter_desktop_system/components/bodies/attendance.dart';
-import 'package:clinic_flutter_desktop_system/components/bodies/profile.dart';
 import 'package:clinic_flutter_desktop_system/components/main/body.dart';
 import 'package:clinic_flutter_desktop_system/components/main/header.dart';
 import 'package:clinic_flutter_desktop_system/constants/colors.dart';
-import 'package:clinic_flutter_desktop_system/data.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -28,13 +26,7 @@ class _HomePageState extends State<HomePage> {
             ),
             Expanded(
               flex: 9,
-              child: !openProfile ? Body(
-                title: "اليوم",
-                child: const AttendanceBody(),
-              ) : Body(
-                title: "الملف",
-                child: ProfileBody(attendances: gAttendance, payment: gpayment,),
-              ),
+              child: Body(),
             ),
           ],
         ),

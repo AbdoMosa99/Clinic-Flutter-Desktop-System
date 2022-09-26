@@ -2,7 +2,7 @@ import 'package:clinic_flutter_desktop_system/components/dialogs/attend_dialog.d
 import 'package:clinic_flutter_desktop_system/constants/colors.dart';
 import 'package:clinic_flutter_desktop_system/data.dart';
 import 'package:clinic_flutter_desktop_system/database/models.dart';
-import 'package:clinic_flutter_desktop_system/state/provider.dart';
+import 'package:clinic_flutter_desktop_system/models/body_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
