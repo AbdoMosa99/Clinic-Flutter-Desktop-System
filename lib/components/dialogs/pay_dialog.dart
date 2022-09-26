@@ -16,7 +16,7 @@ class PayDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
-    var reasonController = TextEditingController(text: "متابعة تقويم");
+    var reasonController = TextEditingController(text: "تقويم");
     var moneyController = TextEditingController();
 
     return Consumer<BodyModel>(builder: (context, body, child) {
@@ -142,13 +142,13 @@ class PayDialog extends StatelessWidget {
                         clientId: client.id,
                         amount: int.parse(moneyController.text),
                         reason: reasonController.text);
+                    Navigator.pop(context);
                     await db.insertPayment(payment);
-                    if (reasonController.text == "متابعة تقويم") {
+                    if (reasonController.text == "تقويم") {
                       owe.remainingAmount =
                           owe.remainingAmount - int.parse(moneyController.text);
                       await db.updateOwe(owe);
                     }
-                    Navigator.pop(context);
                   },
                   child: Container(
                     width: 120.0,

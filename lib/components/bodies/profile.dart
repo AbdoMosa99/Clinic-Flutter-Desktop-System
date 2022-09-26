@@ -33,32 +33,18 @@ class ProfileBody extends StatelessWidget {
                       ' تاريخ',
                       ' ساعة',
                       ' اليوم',
-                      ' المبلغ'
+                      ' السبب',
+                      ' المبلغ',
                     ];
-                    List<List<String>> rows = List.generate(
-                      attendances.length,
-                      (i) {
-                        return [
-                          attendances[i].timestamp.date(),
-                          attendances[i].timestamp.hour(),
-                          attendances[i].timestamp.weekDay().toString(),
-                          payments
-                              .firstWhere(
-                                  (e) =>
-                                      e.timestamp.date ==
-                                      attendances[i].timestamp.date(),
-                                  orElse: () {
-                                return Payment(
-                                    timestamp: TimeStamp(DateTime.now()),
-                                    clientId: 0,
-                                    amount: 0,
-                                    reason: '');
-                              })
-                              .amount
-                              .toString()
-                        ];
-                      },
-                    );
+                    List<List<String>> rows = payments.reversed.map((payment) {
+                      return [
+                        payment.timestamp.date(),
+                        payment.timestamp.hour(),
+                        payment.timestamp.weekDay(),
+                        payment.reason,
+                        payment.amount.toString(),
+                      ];
+                    }).toList();
                     return Column(
                       children: [
                         Expanded(child: Container()),
