@@ -77,6 +77,7 @@ class _AppRowState extends State<AppRow> {
                 ),
               if (widget.cancelBtn)
                 Expanded(
+                  flex: 0,
                   child: CancelButton(id: widget.values[0]),
                 )
             ],

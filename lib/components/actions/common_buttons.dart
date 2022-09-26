@@ -6,6 +6,7 @@ import 'package:clinic_flutter_desktop_system/models/body_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../utility/date.dart';
 import '../dialogs/pay_dialog.dart';
 import 'button.dart';
 
@@ -87,12 +88,24 @@ class CancelButton extends StatelessWidget {
     BodyModel body = Provider.of<BodyModel>(context);
     Client client = body.getClient(id);
 
-    return AppButton(
-      id: id,
-      onPressed: () {},
-      bgColor: Colors.red,
-      fgColor: Colors.white,
-      text: "إلغاء",
-    );
+    return TextButton(
+        onPressed: () async {
+          client.present = false;
+          client.reason = "";
+          await db.updateClient(client);
+          body.updateClient(client);
+
+          List<Attendance> attendances = await db.getAttendance(int.parse(id));
+          DateTime lastAttendance = attendances[0].timestamp.dateTime;
+
+          for(int i = 1; i < attendances.length; i++){
+            if(attendances[i].timestamp.dateTime.isAfter(lastAttendance)){
+                lastAttendance = attendances[i].timestamp.dateTime;
+            }
+          }
+          await db.deleteAttendance(lastAttendance);
+        },
+        child: Image.asset('assets/images/delete_icon.png')
+      );
   }
 }

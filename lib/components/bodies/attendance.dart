@@ -21,7 +21,7 @@ class AttendanceBody extends StatelessWidget {
             ]);
           }
         }
-        return AppTable(header: header, rows: rows, cancelBtn: false);
+        return AppTable(header: header, rows: rows );
       },
     );
   }

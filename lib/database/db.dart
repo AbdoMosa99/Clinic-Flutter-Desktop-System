@@ -186,6 +186,14 @@ class ClinicDatabase {
 
   /* Deleting */
 
+  Future<void> deleteAttendance(DateTime dateTime) async {
+    await database.delete(
+      'attendance',
+      where: "timestamp LIKE ?",
+      whereArgs: [dateTime.toString()],);
+  }
+
+
   Future<void> deleteAll() async {
     await database.delete('client');
 
