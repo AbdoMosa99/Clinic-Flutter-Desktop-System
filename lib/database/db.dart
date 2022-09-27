@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:clinic_flutter_desktop_system/utility/date.dart';
 import 'package:path/path.dart' as path;
 import 'package:sqflite_common/sqlite_api.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
@@ -148,6 +149,15 @@ class ClinicDatabase {
     });
   }
 
+  Future<Payment> getDayPayment(TimeStamp timeStamp) async {
+    final List<Map<String, dynamic>> maps = await database.query(
+      'payment',
+      where: "timestamp = ?",
+      whereArgs: [timeStamp.toString()],
+    );
+    return Payment.fromMap(maps[0]);
+  }
+
   Future<List<Payment>> getDayPayments(DateTime dateTime) async {
     final List<Map<String, dynamic>> maps = await database.query(
       'payment',
@@ -193,6 +203,12 @@ class ClinicDatabase {
       whereArgs: [dateTime.toString()],);
   }
 
+  Future<void> deletePayment(Payment payment) async {
+    await database.delete(
+      'payment',
+      where: "timestamp = ?",
+      whereArgs: [payment.timestamp.toString()],);
+  }
 
   Future<void> deleteAll() async {
     await database.delete('client');

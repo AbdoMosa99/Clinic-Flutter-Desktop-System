@@ -10,7 +10,7 @@ class ClientsBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<BodyModel>(
       builder: (context, body, child) {
-        List<String> header = [' كود', ' اسم العميل', "رقم التليفون "];
+        List<String> header = [' كود', '        اسم العميل', '               رقم التليفون'];
         List<List<String>> rows = List.generate(
           body.clients.length,
           (i) {

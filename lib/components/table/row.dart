@@ -10,6 +10,7 @@ class AppRow extends StatefulWidget {
   final bool cancelBtn;
   final bool isProfile;
 
+
   const AppRow({
     Key? key,
     required this.values,
@@ -24,10 +25,11 @@ class AppRow extends StatefulWidget {
 }
 
 class _AppRowState extends State<AppRow> {
+
   @override
   Widget build(BuildContext context) {
     List<Widget> items = List.generate(
-      widget.values.length,
+      widget.isProfile ? widget.values.length-1 : widget.values.length,
       (i) {
         return Expanded(
           child: Align(
@@ -49,7 +51,7 @@ class _AppRowState extends State<AppRow> {
           child: Row(
             children: [
               Expanded(
-                flex: 3,
+                flex: 5,
                 child: MouseRegion(
                   cursor: !widget.isProfile
                       ? SystemMouseCursors.click
@@ -77,8 +79,11 @@ class _AppRowState extends State<AppRow> {
                 ),
               if (widget.cancelBtn)
                 Expanded(
-                  flex: 0,
-                  child: CancelButton(id: widget.values[0]),
+                  flex: 1,
+                  child: CancelButton(
+                    id: widget.isProfile ? widget.values[5] : widget.values[0],
+                    isProfile: widget.isProfile,
+                  ),
                 )
             ],
           ),

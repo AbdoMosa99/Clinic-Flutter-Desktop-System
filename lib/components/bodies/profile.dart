@@ -18,7 +18,7 @@ class ProfileBody extends StatelessWidget {
   Widget build(BuildContext context) {
     Future<bool> getProfile() async {
       int clientId = int.parse(Provider.of<BodyModel>(context).profileId!);
-      attendances = await db.getAttendance(clientId);
+      //attendances = await db.getAttendance(clientId);
       payments = await db.getPayments(clientId);
       return true;
     }
@@ -31,10 +31,11 @@ class ProfileBody extends StatelessWidget {
                   builder: (context, body, child) {
                     List<String> header = [
                       ' تاريخ',
-                      ' ساعة',
-                      ' اليوم',
-                      ' السبب',
-                      ' المبلغ',
+                      'ساعة',
+                      'اليوم',
+                      'السبب',
+                      'المبلغ',
+                      '      '
                     ];
                     List<List<String>> rows = payments.reversed.map((payment) {
                       return [
@@ -43,6 +44,7 @@ class ProfileBody extends StatelessWidget {
                         payment.timestamp.weekDay(),
                         payment.reason,
                         payment.amount.toString(),
+                        payment.timestamp.toString(),
                       ];
                     }).toList();
                     return Column(
@@ -53,7 +55,7 @@ class ProfileBody extends StatelessWidget {
                           child: AppTable(
                             header: header,
                             rows: rows,
-                            cancelBtn: false,
+                            cancelBtn: true,
                             attendBtn: false,
                             payBtn: false,
                             isProfile: true,

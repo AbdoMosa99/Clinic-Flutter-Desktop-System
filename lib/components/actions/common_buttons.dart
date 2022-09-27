@@ -1,4 +1,5 @@
 import 'package:clinic_flutter_desktop_system/components/dialogs/attend_dialog.dart';
+import 'package:clinic_flutter_desktop_system/components/dialogs/confirm_delete_dialog.dart';
 import 'package:clinic_flutter_desktop_system/constants/colors.dart';
 import 'package:clinic_flutter_desktop_system/data.dart';
 import 'package:clinic_flutter_desktop_system/database/models.dart';
@@ -80,30 +81,46 @@ class PayButton extends StatelessWidget {
 
 class CancelButton extends StatelessWidget {
   final String id;
+  final bool isProfile;
+  //final TimeStamp timeStamp;
 
-  const CancelButton({super.key, required this.id});
+  const CancelButton({super.key, required this.id, this.isProfile = false, });
 
   @override
   Widget build(BuildContext context) {
+
     BodyModel body = Provider.of<BodyModel>(context);
-    Client client = body.getClient(id);
 
     return TextButton(
         onPressed: () async {
-          client.present = false;
-          client.reason = "";
-          await db.updateClient(client);
-          body.updateClient(client);
+          if(!isProfile){
 
-          List<Attendance> attendances = await db.getAttendance(int.parse(id));
-          DateTime lastAttendance = attendances[0].timestamp.dateTime;
+            Client client = body.getClient(id);
 
-          for(int i = 1; i < attendances.length; i++){
-            if(attendances[i].timestamp.dateTime.isAfter(lastAttendance)){
-                lastAttendance = attendances[i].timestamp.dateTime;
+            client.present = false;
+            client.reason = "";
+            await db.updateClient(client);
+            body.updateClient(client);
+
+            List<Attendance> attendances = await db.getAttendance(int.parse(id));
+            DateTime lastAttendance = attendances[0].timestamp.dateTime;
+
+            for(int i = 1; i < attendances.length; i++){
+              if(attendances[i].timestamp.dateTime.isAfter(lastAttendance)){
+                  lastAttendance = attendances[i].timestamp.dateTime;
+              }
             }
+            await db.deleteAttendance(lastAttendance);
           }
-          await db.deleteAttendance(lastAttendance);
+          else{
+            showDialog(
+              context: context,
+              builder: (context) {
+                return ConfirmDeleteDialog(timeStamp: id,);
+              },
+            );
+          }
+
         },
         child: Image.asset('assets/images/delete_icon.png')
       );
