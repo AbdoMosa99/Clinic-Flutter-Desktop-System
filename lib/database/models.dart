@@ -6,6 +6,8 @@ class Client {
   String phone;
   bool present;
   String reason;
+  int totalAmount;
+  int remainingAmount;
 
   Client({
     this.id = 0,
@@ -13,6 +15,8 @@ class Client {
     required this.phone,
     this.present = false,
     this.reason = "",
+    this.totalAmount = 0,
+    this.remainingAmount = 0,
   });
 
   Map<String, dynamic> toMap() {
@@ -20,6 +24,8 @@ class Client {
       'name': name,
       'phone': phone,
       'present': present ? 1 : 0,
+      'totalAmount': totalAmount,
+      'remainingAmount': remainingAmount,
     };
   }
 
@@ -29,6 +35,8 @@ class Client {
       name: map['name'],
       phone: map['phone'],
       present: map['present'] == 1,
+      totalAmount: map['totalAmount'],
+      remainingAmount: map['remainingAmount'],
     );
   }
 
@@ -80,47 +88,6 @@ class Attendance {
   @override
   String toString() {
     return 'Attendance<timestamp: $timestamp, client: $clientId, reason: $reason>';
-  }
-}
-
-class Owe {
-  final TimeStamp timestamp;
-  final int clientId;
-  int totalAmount;
-  int remainingAmount;
-  String reason;
-
-  Owe({
-    required this.timestamp,
-    required this.clientId,
-    required this.totalAmount,
-    required this.remainingAmount,
-    required this.reason,
-  });
-
-  Map<String, dynamic> toMap() {
-    return {
-      'timestamp': timestamp.toString(),
-      'clientId': clientId,
-      'totalAmount': totalAmount,
-      'remainingAmount': remainingAmount,
-      'reason': reason,
-    };
-  }
-
-  factory Owe.fromMap(Map<String, dynamic> map) {
-    return Owe(
-      timestamp: TimeStamp.fromString(map['timestamp']),
-      clientId: map['clientId'],
-      totalAmount: map['totalAmount'],
-      remainingAmount: map['remainingAmount'],
-      reason: map['reason'],
-    );
-  }
-
-  @override
-  String toString() {
-    return 'Owe<timestamp: $timestamp, client: $clientId, totalAmount: $totalAmount, remainingAmount: $remainingAmount reason: $reason>';
   }
 }
 

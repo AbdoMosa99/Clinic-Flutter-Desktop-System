@@ -1,20 +1,20 @@
 import 'package:clinic_flutter_desktop_system/constants/colors.dart';
 import 'package:clinic_flutter_desktop_system/database/models.dart';
-import 'package:clinic_flutter_desktop_system/utility/date.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../data.dart';
 import '../../models/body_model.dart';
 
-class AddClientDialog extends StatelessWidget {
-  const AddClientDialog({super.key});
+class OweDialog extends StatelessWidget {
+  const OweDialog(this.client, {super.key});
+
+  final Client client;
 
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
-    var nameController = TextEditingController();
-    var numberController = TextEditingController();
+    var moneyController = TextEditingController();
 
     return Consumer<BodyModel>(builder: (context, body, child) {
       return Dialog(
@@ -29,8 +29,9 @@ class AddClientDialog extends StatelessWidget {
           child: Column(
             children: [
               Expanded(
+                flex: 0,
                 child: const Text(
-                  "إضافة عميل جديد",
+                  "عمل تقويم",
                   style: TextStyle(
                     fontSize: 30.0,
                     fontWeight: FontWeight.bold,
@@ -39,26 +40,11 @@ class AddClientDialog extends StatelessWidget {
                 ),
               ),
               Expanded(
-                child: Directionality(
-                  textDirection: TextDirection.rtl,
-                  child: TextFormField(
-                    controller: nameController,
-                    decoration: InputDecoration(
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: const BorderSide(
-                              color: AppColors.primary, width: 2.0),
-                          borderRadius: BorderRadius.circular(25.0),
-                        ),
-                        border: OutlineInputBorder(
-                          borderSide: const BorderSide(
-                              color: AppColors.grey, width: 2.0),
-                          borderRadius: BorderRadius.circular(25.0),
-                        ),
-                        filled: true,
-                        fillColor: Colors.white,
-                        labelText: "الاسم:",
-                        labelStyle: TextStyle(
-                            fontSize: 18.0, color: AppColors.primary)),
+                child: Text(
+                  client.name,
+                  style: TextStyle(
+                    fontSize: 24.0,
+                    color: Colors.black,
                   ),
                 ),
               ),
@@ -66,21 +52,21 @@ class AddClientDialog extends StatelessWidget {
                 child: Directionality(
                   textDirection: TextDirection.rtl,
                   child: TextFormField(
-                    controller: numberController,
+                    controller: moneyController,
                     decoration: InputDecoration(
                         focusedBorder: OutlineInputBorder(
                           borderSide: const BorderSide(
                               color: AppColors.primary, width: 2.0),
-                          borderRadius: BorderRadius.circular(25.0),
+                          borderRadius: BorderRadius.circular(12.0),
                         ),
                         border: OutlineInputBorder(
                           borderSide: const BorderSide(
                               color: AppColors.grey, width: 2.0),
-                          borderRadius: BorderRadius.circular(25.0),
+                          borderRadius: BorderRadius.circular(12.0),
                         ),
                         filled: true,
                         fillColor: Colors.white,
-                        labelText: "رقم الهاتف:",
+                        labelText: "المبلغ:",
                         labelStyle: TextStyle(
                             fontSize: 18.0, color: AppColors.primary)),
                   ),
@@ -88,14 +74,11 @@ class AddClientDialog extends StatelessWidget {
               ),
               Expanded(
                 child: TextButton(
-                  onPressed: () {
-                    Client client = Client(
-                        id: body.clients.length + 1,
-                        name: nameController.text,
-                        phone: numberController.text);
-                    db.insertClient(client);
-                    body.addClient(client);
-
+                  onPressed: () async {
+                    client.totalAmount += int.parse(moneyController.text);
+                    client.remainingAmount += int.parse(moneyController.text);
+                    db.updateClient(client);
+                    body.updateClient(client);
                     Navigator.pop(context);
                   },
                   child: Container(
@@ -110,7 +93,7 @@ class AddClientDialog extends StatelessWidget {
                     child: Align(
                       alignment: Alignment.center,
                       child: const Text(
-                        "إضافة",
+                        "تأكيد",
                         style: TextStyle(
                           fontSize: 24.0,
                           color: Colors.white,

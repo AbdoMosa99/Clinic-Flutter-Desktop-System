@@ -8,10 +8,9 @@ import '../../data.dart';
 import '../../models/body_model.dart';
 
 class PayDialog extends StatelessWidget {
-  const PayDialog(this.client, {super.key, required this.owe});
+  const PayDialog(this.client, {super.key});
 
   final Client client;
-  final Owe owe;
 
   @override
   Widget build(BuildContext context) {
@@ -96,7 +95,7 @@ class PayDialog extends StatelessWidget {
                           child: Align(
                             alignment: Alignment.centerRight,
                             child: Text(
-                              " المتبقي: ${owe.remainingAmount}",
+                              " المتبقي: ${client.remainingAmount}",
                               //owe == Null ? '0' : owe.remainingAmount,
                               style: TextStyle(
                                 fontSize: 17.0,
@@ -145,9 +144,9 @@ class PayDialog extends StatelessWidget {
                     Navigator.pop(context);
                     await db.insertPayment(payment);
                     if (reasonController.text == "تقويم") {
-                      owe.remainingAmount =
-                          owe.remainingAmount - int.parse(moneyController.text);
-                      await db.updateOwe(owe);
+                      client.remainingAmount -= int.parse(moneyController.text);
+                      db.updateClient(client);
+                      body.updateClient(client);
                     }
                   },
                   child: Container(

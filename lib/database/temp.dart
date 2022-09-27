@@ -4,9 +4,6 @@ import 'models.dart';
 
 Future<void> insertData() async {
   final db = ClinicDatabase();
-  await db.open();
-
-  db.deleteAll();
   db.databaseFactory.deleteDatabase(db.dbPath);
   await db.open();
 
@@ -17,14 +14,6 @@ Future<void> insertData() async {
     present: false,
   );
   await db.insertClient(client1);
-
-  Owe owe = Owe(
-      timestamp: TimeStamp(DateTime.now()),
-      clientId: client1.id,
-      totalAmount: 0,
-      remainingAmount: 0,
-      reason: "البداية");
-  db.insertOwe(owe);
 
   Client client2 = Client(
     id: 2,

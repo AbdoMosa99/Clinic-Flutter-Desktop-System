@@ -15,6 +15,5 @@ Future<bool> init() async {
   db = ClinicDatabase();
   await db.open();
   dbClients = await db.getClients();
-
   return true;
 }

@@ -10,37 +10,26 @@ class ClinicDatabase {
   String dbPath = path.join('clinic.db');
 
   Future<void> open() async {
-    //sqfliteFfiInit();
     database = await databaseFactory.openDatabase(dbPath);
-
     await database.execute(
       '''
         CREATE TABLE IF NOT EXISTS client (
-        id INTEGER PRIMARY KEY AUTOINCREMENT, 
-        name TEXT NOT NULL UNIQUE, 
-        phone TEXT,
-        present BOOLEAN DEFAULT false
-      )
-      ''',
-    );
-    await database.execute(
-      '''
-        CREATE TABLE IF NOT EXISTS attendance(
-          timestamp TEXT PRIMARY KEY,
-          clientId INTEGER NOT NULL,
-          reason TEXT
+          id INTEGER PRIMARY KEY AUTOINCREMENT, 
+          name TEXT NOT NULL UNIQUE, 
+          phone TEXT,
+          present BOOLEAN DEFAULT false,
+          totalAmount INTEGER NOT NULL CHECK (totalAmount >= 0),
+          remainingAmount INTEGER NOT NULL CHECK (remainingAmount >= 0)
         )
       ''',
     );
     await database.execute(
       '''
-        CREATE TABLE IF NOT EXISTS owe(
-        timestamp TEXT PRIMARY KEY,
-        clientId INTEGER NOT NULL,
-        totalAmount INTEGER NOT NULL CHECK (totalAmount >= 0),
-        remainingAmount INTEGER NOT NULL CHECK (remainingAmount >= 0),
-        reason TEXT NOT NULL
-      )
+        CREATE TABLE IF NOT EXISTS attendance (
+          timestamp TEXT PRIMARY KEY,
+          clientId INTEGER NOT NULL,
+          reason TEXT
+        )
       ''',
     );
     await database.execute(
@@ -62,13 +51,6 @@ class ClinicDatabase {
       'client',
       client.toMap(),
       conflictAlgorithm: ConflictAlgorithm.replace,
-    );
-  }
-
-  Future<void> insertOwe(Owe owe) async {
-    await database.insert(
-      'owe',
-      owe.toMap(),
     );
   }
 
@@ -97,15 +79,6 @@ class ClinicDatabase {
     );
   }
 
-  Future<void> updateOwe(Owe owe) async {
-    await database.update(
-      'owe',
-      owe.toMap(),
-      where: 'timestamp = ?',
-      whereArgs: [owe.timestamp.toString()],
-    );
-  }
-
   /* Getting From database */
 
   Future<Client> getClient(int id) async {
@@ -124,16 +97,6 @@ class ClinicDatabase {
     );
 
     return List.generate(maps.length, (i) => Client.fromMap(maps[i]));
-  }
-
-  Future<Owe> getOwe(int clientId) async {
-    List<Map<String, dynamic>> maps = await database.query(
-      'owe',
-      where: "clientId = ?",
-      whereArgs: [clientId],
-    );
-
-    return Owe.fromMap(maps[0]);
   }
 
   Future<List<Payment>> getPayments(int clientId) async {
@@ -186,21 +149,25 @@ class ClinicDatabase {
 
   /* Deleting */
 
-  Future<void> deleteAttendance(DateTime dateTime) async {
+  Future<void> deleteAttendance(Attendance attendance) async {
     await database.delete(
       'attendance',
-      where: "timestamp LIKE ?",
-      whereArgs: [dateTime.toString()],);
+      where: "timestamp = ?",
+      whereArgs: [attendance.timestamp.toString()],
+    );
   }
-
 
   Future<void> deleteAll() async {
     await database.delete('client');
-
     await database.delete('attendance');
-
-    await database.delete('owe');
-
     await database.delete('payment');
+  }
+
+  Future<void> deleteClient(Client client) async {
+    await database.delete(
+      'client',
+      where: "id = ?",
+      whereArgs: [client.id.toString()],
+    );
   }
 }
