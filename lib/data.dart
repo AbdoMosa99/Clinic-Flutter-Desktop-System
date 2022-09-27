@@ -7,14 +7,11 @@ late final ClinicDatabase db;
 late List<Client> dbClients;
 
 bool openProfile = false;
-List<dynamic> gAttendance = [];
-List<dynamic> gpayment = [];
 
 Future<bool> init() async {
-  // await insertData();
+  //await insertData();
   db = ClinicDatabase();
   await db.open();
   dbClients = await db.getClients();
-
   return true;
 }

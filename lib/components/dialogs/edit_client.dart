@@ -7,14 +7,16 @@ import 'package:provider/provider.dart';
 import '../../data.dart';
 import '../../models/body_model.dart';
 
-class AddClientDialog extends StatelessWidget {
-  const AddClientDialog({super.key});
+class EditClientDialog extends StatelessWidget {
+  final Client client;
+
+  const EditClientDialog(this.client, {super.key});
 
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
-    var nameController = TextEditingController();
-    var numberController = TextEditingController();
+    var nameController = TextEditingController(text: client.name);
+    var numberController = TextEditingController(text: client.phone);
 
     return Consumer<BodyModel>(builder: (context, body, child) {
       return Dialog(
@@ -30,7 +32,7 @@ class AddClientDialog extends StatelessWidget {
             children: [
               Expanded(
                 child: const Text(
-                  "إضافة عميل جديد",
+                  "تعديل عميل",
                   style: TextStyle(
                     fontSize: 30.0,
                     fontWeight: FontWeight.bold,
@@ -88,12 +90,11 @@ class AddClientDialog extends StatelessWidget {
               ),
               Expanded(
                 child: TextButton(
-                  onPressed: () async {
-                    Client client = Client(
-                        name: nameController.text,
-                        phone: numberController.text);
-                    client = await db.insertClient(client);
-                    body.addClient(client);
+                  onPressed: () {
+                    client.name = nameController.text;
+                    client.phone = numberController.text;
+                    db.updateClient(client);
+                    body.updateClient(client);
 
                     Navigator.pop(context);
                   },
@@ -109,7 +110,7 @@ class AddClientDialog extends StatelessWidget {
                     child: Align(
                       alignment: Alignment.center,
                       child: const Text(
-                        "إضافة",
+                        "تعديل",
                         style: TextStyle(
                           fontSize: 24.0,
                           color: Colors.white,

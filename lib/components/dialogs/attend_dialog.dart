@@ -8,10 +8,9 @@ import 'package:provider/provider.dart';
 import 'package:clinic_flutter_desktop_system/data.dart';
 
 class AtttendDialog extends StatelessWidget {
-  const AtttendDialog(this.client, {super.key, required this.owe});
+  const AtttendDialog(this.client, {super.key});
 
   final Client client;
-  final Owe owe;
 
   @override
   Widget build(BuildContext context) {
@@ -95,14 +94,6 @@ class AtttendDialog extends StatelessWidget {
                       client.reason = attendance.reason;
 
                       db.updateClient(client);
-
-                      if (attendance.reason == "متابعة تقويم" &&
-                          owe.reason != "متابعة تقويم") {
-                        owe.totalAmount = 20000;
-                        owe.remainingAmount = 20000;
-                        owe.reason = "متابعة تقويم";
-                        db.updateOwe(owe);
-                      }
                       body.updateClient(client);
 
                       Navigator.pop(context);

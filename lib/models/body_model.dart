@@ -22,6 +22,12 @@ class BodyModel extends ChangeNotifier {
     notifyListeners();
   }
 
+  void deleteClient(Client client) {
+    int index = _clients.indexWhere((e) => e.id == client.id);
+    _clients.removeAt(index);
+    notifyListeners();
+  }
+
   void addClient(Client client) {
     _clients.add(client);
     notifyListeners();

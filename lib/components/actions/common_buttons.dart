@@ -1,5 +1,8 @@
 import 'package:clinic_flutter_desktop_system/components/dialogs/attend_dialog.dart';
 import 'package:clinic_flutter_desktop_system/components/dialogs/confirm_delete_dialog.dart';
+import 'package:clinic_flutter_desktop_system/components/dialogs/delete_client.dart';
+import 'package:clinic_flutter_desktop_system/components/dialogs/edit_client.dart';
+import 'package:clinic_flutter_desktop_system/components/dialogs/owe_dialog.dart';
 import 'package:clinic_flutter_desktop_system/constants/colors.dart';
 import 'package:clinic_flutter_desktop_system/data.dart';
 import 'package:clinic_flutter_desktop_system/database/models.dart';
@@ -7,7 +10,6 @@ import 'package:clinic_flutter_desktop_system/models/body_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../utility/date.dart';
 import '../dialogs/pay_dialog.dart';
 import 'button.dart';
 
@@ -25,14 +27,10 @@ class AttendButton extends StatelessWidget {
           id: id,
           onPressed: () async {
             if (!client.present) {
-              Owe owe = await db.getOwe(client.id);
               showDialog(
                 context: context,
                 builder: (context) {
-                  return AtttendDialog(
-                    client,
-                    owe: owe,
-                  );
+                  return AtttendDialog(client);
                 },
               );
             } else {
@@ -64,11 +62,10 @@ class PayButton extends StatelessWidget {
     return AppButton(
       id: id,
       onPressed: () async {
-        Owe owe = await db.getOwe(client.id);
         showDialog(
           context: context,
           builder: (context) {
-            return PayDialog(client, owe: owe);
+            return PayDialog(client);
           },
         );
       },
@@ -103,11 +100,13 @@ class CancelButton extends StatelessWidget {
             body.updateClient(client);
 
             List<Attendance> attendances = await db.getAttendance(int.parse(id));
-            DateTime lastAttendance = attendances[0].timestamp.dateTime;
 
-            for(int i = 1; i < attendances.length; i++){
-              if(attendances[i].timestamp.dateTime.isAfter(lastAttendance)){
-                  lastAttendance = attendances[i].timestamp.dateTime;
+           Attendance lastAttendance = attendances[0];
+            for (int i = 1; i < attendances.length; i++) {
+              var lastDate = lastAttendance.timestamp.dateTime;
+              var currentDate = attendances[i].timestamp.dateTime;
+              if (currentDate.isAfter(lastDate)) {
+                lastAttendance = attendances[i];
               }
             }
             await db.deleteAttendance(lastAttendance);
@@ -122,7 +121,86 @@ class CancelButton extends StatelessWidget {
           }
 
         },
-        child: Image.asset('assets/images/delete_icon.png')
-      );
+        child: Image.asset('assets/images/delete_icon.png'));
+  }
+}
+
+class MakeOweButton extends StatelessWidget {
+  final String id;
+
+  const MakeOweButton(this.id, {super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    BodyModel body = Provider.of<BodyModel>(context);
+    Client client = body.getClient(id);
+
+    return AppButton(
+      id: id,
+      onPressed: () async {
+        showDialog(
+          context: context,
+          builder: (context) {
+            return OweDialog(client);
+          },
+        );
+      },
+      bgColor: AppColors.grey,
+      fgColor: Colors.black,
+      text: "عمل",
+    );
+  }
+}
+
+class EditClientButton extends StatelessWidget {
+  final String id;
+
+  const EditClientButton(this.id, {super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    BodyModel body = Provider.of<BodyModel>(context);
+    Client client = body.getClient(id);
+
+    return AppButton(
+      id: id,
+      onPressed: () async {
+        showDialog(
+          context: context,
+          builder: (context) {
+            return EditClientDialog(client);
+          },
+        );
+      },
+      bgColor: AppColors.grey,
+      fgColor: Colors.black,
+      text: "تعديل",
+    );
+  }
+}
+
+class DeleteClientButton extends StatelessWidget {
+  final String id;
+  const DeleteClientButton(this.id, {super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    BodyModel body = Provider.of<BodyModel>(context);
+    Client client = body.getClient(id);
+
+    return AppButton(
+      id: id,
+      onPressed: () async {
+        showDialog(
+          context: context,
+          builder: (context) {
+            return DeleteClientDialog(client);
+          },
+        );
+      },
+      bgColor: AppColors.primary,
+      fgColor: Colors.white,
+      text: "حذف",
+    );
   }
 }
