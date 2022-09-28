@@ -134,7 +134,10 @@ class SearchItem extends StatelessWidget {
                 onPointerUp: go,
                 child: Align(
                   alignment: Alignment.centerRight,
-                  child: Text(client.name),
+                  child: Text(
+                    client.name,
+                    style: const TextStyle(fontSize: 20.0),
+                  ),
                 ),
               ),
             ),

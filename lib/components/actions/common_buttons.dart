@@ -37,6 +37,7 @@ class AttendButton extends StatelessWidget {
               client.present = false;
               client.reason = "";
               db.updateClient(client);
+              body.leave(client);
               body.updateClient(client);
             }
           },
@@ -79,29 +80,32 @@ class PayButton extends StatelessWidget {
 class CancelButton extends StatelessWidget {
   final String id;
   final bool isProfile;
-  //final TimeStamp timeStamp;
 
-  const CancelButton({super.key, required this.id, this.isProfile = false, });
+  const CancelButton({
+    super.key,
+    required this.id,
+    this.isProfile = false,
+  });
 
   @override
   Widget build(BuildContext context) {
-
     BodyModel body = Provider.of<BodyModel>(context);
 
     return TextButton(
         onPressed: () async {
-          if(!isProfile){
-
+          if (!isProfile) {
             Client client = body.getClient(id);
 
             client.present = false;
             client.reason = "";
+            body.leave(client);
             await db.updateClient(client);
             body.updateClient(client);
 
-            List<Attendance> attendances = await db.getAttendance(int.parse(id));
+            List<Attendance> attendances =
+                await db.getAttendance(int.parse(id));
 
-           Attendance lastAttendance = attendances[0];
+            Attendance lastAttendance = attendances[0];
             for (int i = 1; i < attendances.length; i++) {
               var lastDate = lastAttendance.timestamp.dateTime;
               var currentDate = attendances[i].timestamp.dateTime;
@@ -110,16 +114,16 @@ class CancelButton extends StatelessWidget {
               }
             }
             await db.deleteAttendance(lastAttendance);
-          }
-          else{
+          } else {
             showDialog(
               context: context,
               builder: (context) {
-                return ConfirmDeleteDialog(timeStamp: id,);
+                return ConfirmDeleteDialog(
+                  timeStamp: id,
+                );
               },
             );
           }
-
         },
         child: Image.asset('assets/images/delete_icon.png'));
   }

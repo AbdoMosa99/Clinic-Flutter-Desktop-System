@@ -9,7 +9,7 @@ late List<Client> dbClients;
 bool openProfile = false;
 
 Future<bool> init() async {
-  //await insertData();
+  // await insertData();
   db = ClinicDatabase();
   await db.open();
   dbClients = await db.getClients();

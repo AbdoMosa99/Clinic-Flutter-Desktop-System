@@ -20,7 +20,8 @@ class ClinicDatabase {
           phone TEXT,
           present BOOLEAN DEFAULT false,
           totalAmount INTEGER NOT NULL CHECK (totalAmount >= 0),
-          remainingAmount INTEGER NOT NULL CHECK (remainingAmount >= 0)
+          remainingAmount INTEGER NOT NULL CHECK (remainingAmount >= 0),
+          reason TEXT DEFAULT ""
         )
       ''',
     );
@@ -53,11 +54,8 @@ class ClinicDatabase {
       client.toMap(),
       conflictAlgorithm: ConflictAlgorithm.replace,
     );
-    final List<Map<String, dynamic>> maps = await database.query(
-      'client',
-      orderBy: 'id DESC',
-      limit: 1
-    );
+    final List<Map<String, dynamic>> maps =
+        await database.query('client', orderBy: 'id DESC', limit: 1);
     return Client.fromMap(maps[0]);
   }
 
@@ -118,7 +116,7 @@ class ClinicDatabase {
     });
   }
 
-  Future<Payment> getDayPayment(TimeStamp timeStamp) async {
+  Future<Payment> getPayment(TimeStamp timeStamp) async {
     final List<Map<String, dynamic>> maps = await database.query(
       'payment',
       where: "timestamp = ?",
@@ -177,7 +175,8 @@ class ClinicDatabase {
     await database.delete(
       'payment',
       where: "timestamp = ?",
-      whereArgs: [payment.timestamp.toString()],);
+      whereArgs: [payment.timestamp.toString()],
+    );
   }
 
   Future<void> deleteAll() async {

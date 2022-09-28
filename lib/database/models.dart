@@ -26,6 +26,7 @@ class Client {
       'present': present ? 1 : 0,
       'totalAmount': totalAmount,
       'remainingAmount': remainingAmount,
+      'reason': reason,
     };
   }
 
@@ -37,6 +38,7 @@ class Client {
       present: map['present'] == 1,
       totalAmount: map['totalAmount'],
       remainingAmount: map['remainingAmount'],
+      reason: map['reason'],
     );
   }
 

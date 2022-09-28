@@ -10,18 +10,18 @@ class AttendanceBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<BodyModel>(
       builder: (context, body, child) {
-        List<String> header = ['الدور  ', ' اسم العميل', 'السبب '];
+        List<String> header = ['الدور', 'اسم العميل', 'السبب'];
         List<List<String>> rows = [];
-        for (int i = 0; i < body.clients.length; i++) {
-          if (body.clients[i].present) {
-            rows.add([
-              body.clients[i].id.toString(),
-              body.clients[i].name,
-              body.clients[i].reason,
-            ]);
-          }
-        }
-        return AppTable(header: header, rows: rows );
+        int n = 1;
+        body.attendance.forEach((i) {
+          rows.add([
+            body.clients[i].id.toString(),
+            (n++).toString(),
+            body.clients[i].name,
+            body.clients[i].reason,
+          ]);
+        });
+        return AppTable(header: header, rows: rows);
       },
     );
   }

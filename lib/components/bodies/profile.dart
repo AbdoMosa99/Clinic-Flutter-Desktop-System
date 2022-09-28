@@ -93,21 +93,21 @@ class ProfileBody extends StatelessWidget {
                   ? Consumer<BodyModel>(
                       builder: (context, body, child) {
                         List<String> header = [
-                          ' تاريخ',
-                          ' ساعة',
-                          ' اليوم',
-                          ' السبب',
-                          ' المبلغ',
+                          'تاريخ',
+                          'ساعة',
+                          'اليوم',
+                          'السبب',
+                          'المبلغ',
                         ];
                         List<List<String>> rows =
                             payments.reversed.map((payment) {
                           return [
+                            payment.timestamp.toString(),
                             payment.timestamp.date(),
                             payment.timestamp.hour(),
                             payment.timestamp.weekDay(),
                             payment.reason,
                             payment.amount.toString(),
-                            payment.timestamp.toString(),
                           ];
                         }).toList();
                         return AppTable(

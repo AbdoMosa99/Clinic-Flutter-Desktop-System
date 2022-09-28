@@ -93,6 +93,7 @@ class AtttendDialog extends StatelessWidget {
                       client.present = true;
                       client.reason = attendance.reason;
 
+                      body.attend(client);
                       db.updateClient(client);
                       body.updateClient(client);
 

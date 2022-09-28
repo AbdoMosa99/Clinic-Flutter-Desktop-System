@@ -10,11 +10,16 @@ class ClientsBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<BodyModel>(
       builder: (context, body, child) {
-        List<String> header = [' كود', '        اسم العميل', '               رقم التليفون'];
+        List<String> header = ['كود', 'اسم العميل', 'رقم التليفون'];
         List<List<String>> rows = List.generate(
           body.clients.length,
           (i) {
-            return body.clients[i].toList();
+            return [
+              body.clients[i].id.toString(),
+              body.clients[i].id.toString(),
+              body.clients[i].name,
+              body.clients[i].phone,
+            ];
           },
         );
         return AppTable(header: header, rows: rows, cancelBtn: false);

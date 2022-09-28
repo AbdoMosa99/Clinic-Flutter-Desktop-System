@@ -10,7 +10,6 @@ class AppRow extends StatefulWidget {
   final bool cancelBtn;
   final bool isProfile;
 
-
   const AppRow({
     Key? key,
     required this.values,
@@ -25,17 +24,16 @@ class AppRow extends StatefulWidget {
 }
 
 class _AppRowState extends State<AppRow> {
-
   @override
   Widget build(BuildContext context) {
     List<Widget> items = List.generate(
-      widget.isProfile ? widget.values.length-1 : widget.values.length,
+      widget.values.length - 1,
       (i) {
         return Expanded(
           child: Align(
             alignment: Alignment.centerRight,
             child: Text(
-              widget.values[i],
+              widget.values[i + 1],
               style: const TextStyle(fontSize: 20.0, color: Colors.black),
             ),
           ),
@@ -51,7 +49,7 @@ class _AppRowState extends State<AppRow> {
           child: Row(
             children: [
               Expanded(
-                flex: 5,
+                flex: 4,
                 child: MouseRegion(
                   cursor: !widget.isProfile
                       ? SystemMouseCursors.click
@@ -69,22 +67,27 @@ class _AppRowState extends State<AppRow> {
                   ),
                 ),
               ),
-              if (widget.attendBtn)
-                Expanded(
-                  child: AttendButton(widget.values[0]),
+              Expanded(
+                child: Row(
+                  children: [
+                    if (widget.attendBtn)
+                      Expanded(
+                        child: AttendButton(widget.values[0]),
+                      ),
+                    if (widget.payBtn)
+                      Expanded(
+                        child: PayButton(id: widget.values[0]),
+                      ),
+                    if (widget.cancelBtn)
+                      Expanded(
+                        child: CancelButton(
+                          id: widget.values[0],
+                          isProfile: widget.isProfile,
+                        ),
+                      ),
+                  ],
                 ),
-              if (widget.payBtn)
-                Expanded(
-                  child: PayButton(id: widget.values[0]),
-                ),
-              if (widget.cancelBtn)
-                Expanded(
-                  flex: 1,
-                  child: CancelButton(
-                    id: widget.isProfile ? widget.values[5] : widget.values[0],
-                    isProfile: widget.isProfile,
-                  ),
-                )
+              ),
             ],
           ),
         ),

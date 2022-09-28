@@ -9,7 +9,10 @@ import '../../data.dart';
 import '../../models/body_model.dart';
 
 class ConfirmDeleteDialog extends StatelessWidget {
-  const ConfirmDeleteDialog({super.key, required this.timeStamp, });
+  const ConfirmDeleteDialog({
+    super.key,
+    required this.timeStamp,
+  });
 
   final String timeStamp;
 
@@ -41,7 +44,7 @@ class ConfirmDeleteDialog extends StatelessWidget {
                 ),
               ),
               Expanded(
-              flex: 1,
+                flex: 1,
                 child: Text(
                   "هل متأكد أنك تريد حذف عملية الدفع هذه",
                   style: TextStyle(
@@ -55,10 +58,10 @@ class ConfirmDeleteDialog extends StatelessWidget {
                 children: [
                   Expanded(
                     child: AppButton(
-                      id : '0',
+                      id: '0',
                       bgColor: Colors.grey,
                       fgColor: Colors.black,
-                      onPressed: (){
+                      onPressed: () {
                         Navigator.pop(context);
                       },
                       text: 'إلغاء',
@@ -69,15 +72,24 @@ class ConfirmDeleteDialog extends StatelessWidget {
                   ),
                   Expanded(
                     child: AppButton(
-                      id : '0',
+                      id: '0',
                       bgColor: Colors.red,
                       fgColor: Colors.white,
-                      onPressed: () async{
+                      onPressed: () async {
                         Navigator.pop(context);
+                        BodyModel bodyModel =
+                            Provider.of<BodyModel>(context, listen: false);
 
-                        db.deletePayment(await db.getDayPayment(TimeStamp.fromString(timeStamp))) ;
+                        Payment payment = await db
+                            .getPayment(TimeStamp.fromString(timeStamp));
+                        await db.deletePayment(payment);
+                        if (payment.reason == "تقويم") {
+                          Client client = body.getClient(body.profileId!);
+                          client.remainingAmount += payment.amount;
+                          db.updateClient(client);
+                          body.updateClient(client);
+                        }
 
-                        BodyModel bodyModel = Provider.of<BodyModel>(context, listen: false);
                         bodyModel.navigate("عميل");
                       },
                       text: 'حذف',

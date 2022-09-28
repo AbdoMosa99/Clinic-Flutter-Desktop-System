@@ -41,6 +41,7 @@ dependencies:
   path: ^1.8.2
   sqflite_common_ffi: ^2.1.1+1
   provider: ^6.0.3
+  msix: ^3.6.3
 
 dev_dependencies:
   flutter_test:
@@ -93,3 +94,10 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+msix_config:
+  display_name: Clinic System
+  publisher_display_name: Technocrats
+  identity_name: technocrats.system.clinic
+  msix_version: 1.0.0.0
+  logo_path: H:\Projects\Tech\Personal\clinic_flutter_desktop_system\assets\images\logo.png
+  capabilities: internetClient

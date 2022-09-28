@@ -32,23 +32,28 @@ class AppTable extends StatelessWidget {
             color: AppColors.secondary,
             child: Row(
               children: [
-                ...List.generate(
-                  header.length,
-                  (i) {
-                    return Expanded(
-                      child: Text(
-                        header[i],
-                        style: const TextStyle(
-                          fontSize: 20.0,
-                          fontWeight: FontWeight.bold,
-                        ),
+                Expanded(
+                  flex: 4,
+                  child: Row(
+                    children: [
+                      ...List.generate(
+                        header.length,
+                        (i) {
+                          return Expanded(
+                            child: Text(
+                              header[i],
+                              style: const TextStyle(
+                                fontSize: 20.0,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          );
+                        },
                       ),
-                    );
-                  },
+                    ],
+                  ),
                 ),
-                !isProfile
-                    ? const Expanded(flex: 2, child: SizedBox(width: 10))
-                    : const SizedBox()
+                Expanded(child: SizedBox()),
               ],
             ),
           ),
