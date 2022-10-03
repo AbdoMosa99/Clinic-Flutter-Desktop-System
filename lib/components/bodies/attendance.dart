@@ -13,14 +13,14 @@ class AttendanceBody extends StatelessWidget {
         List<String> header = ['الدور', 'اسم العميل', 'السبب'];
         List<List<String>> rows = [];
         int n = 1;
-        body.attendance.forEach((i) {
+        for (var i in body.attendance) {
           rows.add([
             body.clients[i].id.toString(),
             (n++).toString(),
             body.clients[i].name,
             body.clients[i].reason,
           ]);
-        });
+        }
         return AppTable(header: header, rows: rows);
       },
     );

@@ -21,9 +21,6 @@ class _SearchFieldState extends State<SearchField> {
 
   @override
   void initState() {
-    // RenderBox renderBox = context.findRenderObject() as RenderBox;
-    // Size overlaySize = renderBox.size;
-
     _focusNode.addListener(() {
       if (_focusNode.hasFocus) {
         _overlayEntry = OverlayEntry(
@@ -74,11 +71,11 @@ class _SearchFieldState extends State<SearchField> {
       setState(() {
         matchingClients.clear();
         if (query.isNotEmpty) {
-          allClients.forEach((client) {
+          for (var client in allClients) {
             if (client.name.startsWith(query)) {
               matchingClients.add(client);
             }
-          });
+          }
         }
       });
       _overlayEntry.markNeedsBuild();
@@ -127,7 +124,7 @@ class SearchItem extends StatelessWidget {
       children: [
         Expanded(
           child: Container(
-            padding: EdgeInsets.all(20.0),
+            padding: const EdgeInsets.all(20.0),
             child: MouseRegion(
               cursor: SystemMouseCursors.click,
               child: Listener(

@@ -1,6 +1,5 @@
 import 'package:clinic_flutter_desktop_system/constants/colors.dart';
 import 'package:clinic_flutter_desktop_system/database/models.dart';
-import 'package:clinic_flutter_desktop_system/utility/date.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -30,8 +29,8 @@ class EditClientDialog extends StatelessWidget {
           ),
           child: Column(
             children: [
-              Expanded(
-                child: const Text(
+              const Expanded(
+                child: Text(
                   "تعديل عميل",
                   style: TextStyle(
                     fontSize: 30.0,
@@ -46,21 +45,24 @@ class EditClientDialog extends StatelessWidget {
                   child: TextFormField(
                     controller: nameController,
                     decoration: InputDecoration(
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: const BorderSide(
-                              color: AppColors.primary, width: 2.0),
-                          borderRadius: BorderRadius.circular(25.0),
-                        ),
-                        border: OutlineInputBorder(
-                          borderSide: const BorderSide(
-                              color: AppColors.grey, width: 2.0),
-                          borderRadius: BorderRadius.circular(25.0),
-                        ),
-                        filled: true,
-                        fillColor: Colors.white,
-                        labelText: "الاسم:",
-                        labelStyle: TextStyle(
-                            fontSize: 18.0, color: AppColors.primary)),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(
+                            color: AppColors.primary, width: 2.0),
+                        borderRadius: BorderRadius.circular(25.0),
+                      ),
+                      border: OutlineInputBorder(
+                        borderSide:
+                            const BorderSide(color: AppColors.grey, width: 2.0),
+                        borderRadius: BorderRadius.circular(25.0),
+                      ),
+                      filled: true,
+                      fillColor: Colors.white,
+                      labelText: "الاسم:",
+                      labelStyle: const TextStyle(
+                        fontSize: 18.0,
+                        color: AppColors.primary,
+                      ),
+                    ),
                   ),
                 ),
               ),
@@ -70,21 +72,24 @@ class EditClientDialog extends StatelessWidget {
                   child: TextFormField(
                     controller: numberController,
                     decoration: InputDecoration(
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: const BorderSide(
-                              color: AppColors.primary, width: 2.0),
-                          borderRadius: BorderRadius.circular(25.0),
-                        ),
-                        border: OutlineInputBorder(
-                          borderSide: const BorderSide(
-                              color: AppColors.grey, width: 2.0),
-                          borderRadius: BorderRadius.circular(25.0),
-                        ),
-                        filled: true,
-                        fillColor: Colors.white,
-                        labelText: "رقم الهاتف:",
-                        labelStyle: TextStyle(
-                            fontSize: 18.0, color: AppColors.primary)),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(
+                            color: AppColors.primary, width: 2.0),
+                        borderRadius: BorderRadius.circular(25.0),
+                      ),
+                      border: OutlineInputBorder(
+                        borderSide:
+                            const BorderSide(color: AppColors.grey, width: 2.0),
+                        borderRadius: BorderRadius.circular(25.0),
+                      ),
+                      filled: true,
+                      fillColor: Colors.white,
+                      labelText: "رقم الهاتف:",
+                      labelStyle: const TextStyle(
+                        fontSize: 18.0,
+                        color: AppColors.primary,
+                      ),
+                    ),
                   ),
                 ),
               ),
@@ -107,9 +112,9 @@ class EditClientDialog extends StatelessWidget {
                       color: AppColors.primary,
                       borderRadius: BorderRadius.all(Radius.circular(12.0)),
                     ),
-                    child: Align(
+                    child: const Align(
                       alignment: Alignment.center,
-                      child: const Text(
+                      child: Text(
                         "تعديل",
                         style: TextStyle(
                           fontSize: 24.0,

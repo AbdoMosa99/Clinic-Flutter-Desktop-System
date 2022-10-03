@@ -1,4 +1,3 @@
-import 'package:clinic_flutter_desktop_system/components/bodies/attendance.dart';
 import 'package:clinic_flutter_desktop_system/components/main/body.dart';
 import 'package:clinic_flutter_desktop_system/components/main/header.dart';
 import 'package:clinic_flutter_desktop_system/constants/colors.dart';
@@ -19,8 +18,8 @@ class _HomePageState extends State<HomePage> {
       child: Scaffold(
         backgroundColor: AppColors.primaryLight,
         body: Column(
-          children: [
-            const Expanded(
+          children: const [
+            Expanded(
               flex: 1,
               child: Header(),
             ),

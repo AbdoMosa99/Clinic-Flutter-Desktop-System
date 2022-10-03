@@ -11,38 +11,47 @@ class ClinicDatabase {
   String dbPath = path.join('clinic.db');
 
   Future<void> open() async {
-    database = await databaseFactory.openDatabase(dbPath);
-    await database.execute(
-      '''
-        CREATE TABLE IF NOT EXISTS client (
-          id INTEGER PRIMARY KEY AUTOINCREMENT, 
-          name TEXT NOT NULL UNIQUE, 
-          phone TEXT,
-          present BOOLEAN DEFAULT false,
-          totalAmount INTEGER NOT NULL CHECK (totalAmount >= 0),
-          remainingAmount INTEGER NOT NULL CHECK (remainingAmount >= 0),
-          reason TEXT DEFAULT ""
-        )
-      ''',
+    sqfliteFfiInit();
+    var openDatabaseOptions = OpenDatabaseOptions(
+      version: 1,
+      onCreate: (db, version) async {
+        await db.execute(
+          '''
+            CREATE TABLE client (
+              id INTEGER PRIMARY KEY AUTOINCREMENT, 
+              name TEXT NOT NULL UNIQUE, 
+              phone TEXT,
+              present BOOLEAN DEFAULT false,
+              totalAmount INTEGER NOT NULL CHECK (totalAmount >= 0),
+              remainingAmount INTEGER NOT NULL CHECK (remainingAmount >= 0),
+              reason TEXT DEFAULT ""
+            )
+          ''',
+        );
+        await db.execute(
+          '''
+            CREATE TABLE attendance (
+              timestamp TEXT PRIMARY KEY,
+              clientId INTEGER NOT NULL,
+              reason TEXT
+            )
+          ''',
+        );
+        await db.execute(
+          '''
+            CREATE TABLE payment(
+              timestamp TEXT PRIMARY KEY,
+              clientId INTEGER NOT NULL,
+              amount INTEGER NOT NULL CHECK (amount >= 0), 
+              reason TEXT
+            )
+          ''',
+        );
+      },
     );
-    await database.execute(
-      '''
-        CREATE TABLE IF NOT EXISTS attendance (
-          timestamp TEXT PRIMARY KEY,
-          clientId INTEGER NOT NULL,
-          reason TEXT
-        )
-      ''',
-    );
-    await database.execute(
-      '''
-        CREATE TABLE IF NOT EXISTS payment(
-          timestamp TEXT PRIMARY KEY,
-          clientId INTEGER NOT NULL,
-          amount INTEGER NOT NULL CHECK (amount >= 0), 
-          reason TEXT
-        )
-      ''',
+    database = await databaseFactory.openDatabase(
+      dbPath,
+      options: openDatabaseOptions,
     );
   }
 

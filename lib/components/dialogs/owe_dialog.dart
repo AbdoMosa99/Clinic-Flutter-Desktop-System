@@ -28,9 +28,9 @@ class OweDialog extends StatelessWidget {
           ),
           child: Column(
             children: [
-              Expanded(
+              const Expanded(
                 flex: 0,
-                child: const Text(
+                child: Text(
                   "عمل تقويم",
                   style: TextStyle(
                     fontSize: 30.0,
@@ -42,7 +42,7 @@ class OweDialog extends StatelessWidget {
               Expanded(
                 child: Text(
                   client.name,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 24.0,
                     color: Colors.black,
                   ),
@@ -54,21 +54,24 @@ class OweDialog extends StatelessWidget {
                   child: TextFormField(
                     controller: moneyController,
                     decoration: InputDecoration(
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: const BorderSide(
-                              color: AppColors.primary, width: 2.0),
-                          borderRadius: BorderRadius.circular(12.0),
-                        ),
-                        border: OutlineInputBorder(
-                          borderSide: const BorderSide(
-                              color: AppColors.grey, width: 2.0),
-                          borderRadius: BorderRadius.circular(12.0),
-                        ),
-                        filled: true,
-                        fillColor: Colors.white,
-                        labelText: "المبلغ:",
-                        labelStyle: TextStyle(
-                            fontSize: 18.0, color: AppColors.primary)),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(
+                            color: AppColors.primary, width: 2.0),
+                        borderRadius: BorderRadius.circular(12.0),
+                      ),
+                      border: OutlineInputBorder(
+                        borderSide:
+                            const BorderSide(color: AppColors.grey, width: 2.0),
+                        borderRadius: BorderRadius.circular(12.0),
+                      ),
+                      filled: true,
+                      fillColor: Colors.white,
+                      labelText: "المبلغ:",
+                      labelStyle: const TextStyle(
+                        fontSize: 18.0,
+                        color: AppColors.primary,
+                      ),
+                    ),
                   ),
                 ),
               ),
@@ -90,9 +93,9 @@ class OweDialog extends StatelessWidget {
                       color: AppColors.primary,
                       borderRadius: BorderRadius.all(Radius.circular(12.0)),
                     ),
-                    child: Align(
+                    child: const Align(
                       alignment: Alignment.center,
-                      child: const Text(
+                      child: Text(
                         "تأكيد",
                         style: TextStyle(
                           fontSize: 24.0,

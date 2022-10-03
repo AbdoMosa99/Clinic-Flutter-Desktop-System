@@ -1,6 +1,5 @@
 import 'package:clinic_flutter_desktop_system/constants/colors.dart';
 import 'package:clinic_flutter_desktop_system/database/models.dart';
-import 'package:clinic_flutter_desktop_system/utility/date.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -28,8 +27,8 @@ class AddClientDialog extends StatelessWidget {
           ),
           child: Column(
             children: [
-              Expanded(
-                child: const Text(
+              const Expanded(
+                child: Text(
                   "إضافة عميل جديد",
                   style: TextStyle(
                     fontSize: 30.0,
@@ -44,21 +43,24 @@ class AddClientDialog extends StatelessWidget {
                   child: TextFormField(
                     controller: nameController,
                     decoration: InputDecoration(
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: const BorderSide(
-                              color: AppColors.primary, width: 2.0),
-                          borderRadius: BorderRadius.circular(25.0),
-                        ),
-                        border: OutlineInputBorder(
-                          borderSide: const BorderSide(
-                              color: AppColors.grey, width: 2.0),
-                          borderRadius: BorderRadius.circular(25.0),
-                        ),
-                        filled: true,
-                        fillColor: Colors.white,
-                        labelText: "الاسم:",
-                        labelStyle: TextStyle(
-                            fontSize: 18.0, color: AppColors.primary)),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(
+                            color: AppColors.primary, width: 2.0),
+                        borderRadius: BorderRadius.circular(25.0),
+                      ),
+                      border: OutlineInputBorder(
+                        borderSide:
+                            const BorderSide(color: AppColors.grey, width: 2.0),
+                        borderRadius: BorderRadius.circular(25.0),
+                      ),
+                      filled: true,
+                      fillColor: Colors.white,
+                      labelText: "الاسم:",
+                      labelStyle: const TextStyle(
+                        fontSize: 18.0,
+                        color: AppColors.primary,
+                      ),
+                    ),
                   ),
                 ),
               ),
@@ -81,8 +83,8 @@ class AddClientDialog extends StatelessWidget {
                         filled: true,
                         fillColor: Colors.white,
                         labelText: "رقم الهاتف:",
-                        labelStyle: TextStyle(
-                            fontSize: 18.0, color: AppColors.primary)),
+                        labelStyle: const TextStyle(
+                            fontSize: 18.0, color: AppColors.primary,),),
                   ),
                 ),
               ),
@@ -92,10 +94,9 @@ class AddClientDialog extends StatelessWidget {
                     Client client = Client(
                         name: nameController.text,
                         phone: numberController.text);
+                    Navigator.pop(context);
                     client = await db.insertClient(client);
                     body.addClient(client);
-
-                    Navigator.pop(context);
                   },
                   child: Container(
                     width: 120.0,
@@ -106,9 +107,9 @@ class AddClientDialog extends StatelessWidget {
                       color: AppColors.primary,
                       borderRadius: BorderRadius.all(Radius.circular(12.0)),
                     ),
-                    child: Align(
+                    child: const Align(
                       alignment: Alignment.center,
-                      child: const Text(
+                      child: Text(
                         "إضافة",
                         style: TextStyle(
                           fontSize: 24.0,

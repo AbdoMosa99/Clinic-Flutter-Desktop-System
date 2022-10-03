@@ -53,7 +53,7 @@ class AppTable extends StatelessWidget {
                     ],
                   ),
                 ),
-                Expanded(child: SizedBox()),
+                const Expanded(child: SizedBox()),
               ],
             ),
           ),

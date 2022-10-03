@@ -43,7 +43,7 @@ class _AppRowState extends State<AppRow> {
 
     return Column(
       children: [
-        Container(
+        SizedBox(
           width: double.infinity,
           height: 40,
           child: Row(

@@ -14,7 +14,6 @@ class DeleteClientDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
-    var moneyController = TextEditingController();
 
     return Consumer<BodyModel>(builder: (context, body, child) {
       return Dialog(
@@ -28,9 +27,9 @@ class DeleteClientDialog extends StatelessWidget {
           ),
           child: Column(
             children: [
-              Expanded(
+              const Expanded(
                 flex: 0,
-                child: const Text(
+                child: Text(
                   "حذف العميل",
                   style: TextStyle(
                     fontSize: 30.0,
@@ -42,7 +41,7 @@ class DeleteClientDialog extends StatelessWidget {
               Expanded(
                 child: Text(
                   client.name,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 24.0,
                     color: Colors.black,
                   ),
@@ -65,9 +64,9 @@ class DeleteClientDialog extends StatelessWidget {
                       color: AppColors.primary,
                       borderRadius: BorderRadius.all(Radius.circular(12.0)),
                     ),
-                    child: Align(
+                    child: const Align(
                       alignment: Alignment.center,
-                      child: const Text(
+                      child: Text(
                         "تأكيد",
                         style: TextStyle(
                           fontSize: 24.0,

@@ -32,9 +32,9 @@ class ConfirmDeleteDialog extends StatelessWidget {
           ),
           child: Column(
             children: [
-              Expanded(
+              const Expanded(
                 flex: 1,
-                child: const Text(
+                child: Text(
                   "حذف عملية دفع",
                   style: TextStyle(
                     fontSize: 30.0,
@@ -43,7 +43,7 @@ class ConfirmDeleteDialog extends StatelessWidget {
                   ),
                 ),
               ),
-              Expanded(
+              const Expanded(
                 flex: 1,
                 child: Text(
                   "هل متأكد أنك تريد حذف عملية الدفع هذه",
@@ -67,7 +67,7 @@ class ConfirmDeleteDialog extends StatelessWidget {
                       text: 'إلغاء',
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 20.0,
                   ),
                   Expanded(

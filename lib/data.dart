@@ -1,5 +1,4 @@
 import 'package:clinic_flutter_desktop_system/database/db.dart';
-import 'package:clinic_flutter_desktop_system/database/temp.dart';
 
 import 'database/models.dart';
 
@@ -9,8 +8,9 @@ late List<Client> dbClients;
 bool openProfile = false;
 
 Future<bool> init() async {
-  // await insertData();
   db = ClinicDatabase();
+  // await db.databaseFactory.deleteDatabase(db.dbPath);
+  // await insertData();
   await db.open();
   dbClients = await db.getClients();
   return true;

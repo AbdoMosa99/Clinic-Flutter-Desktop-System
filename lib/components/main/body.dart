@@ -56,7 +56,7 @@ class _BodyState extends State<Body> {
                         child: Padding(
                       padding: const EdgeInsets.only(right: 4.0),
                       child: Consumer<BodyModel>(
-                        builder: (context, body, child) => SearchField(),
+                        builder: (context, body, child) => const SearchField(),
                       ),
                     )),
                     const SizedBox(
@@ -107,7 +107,7 @@ class _BodyState extends State<Body> {
                         showDialog(
                           context: context,
                           builder: (context) {
-                            return AddClientDialog();
+                            return const AddClientDialog();
                           },
                         );
                       },
@@ -144,9 +144,9 @@ class _BodyState extends State<Body> {
                   ),
                 ),
                 child: (body.title == "اليوم")
-                    ? AttendanceBody()
+                    ? const AttendanceBody()
                     : (body.title == "الكل")
-                        ? ClientsBody()
+                        ? const ClientsBody()
                         : ProfileBody(),
               ),
             ),
